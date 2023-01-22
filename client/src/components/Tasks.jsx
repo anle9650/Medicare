@@ -9,6 +9,14 @@ export default function Tasks() {
     return taskData;
   }
 
+  function updateTask(updatedTask) {
+    setTasks((oldTasks) =>
+      oldTasks.map((oldTask) =>
+        oldTask.id === updatedTask.id ? updatedTask : oldTask
+      )
+    );
+  }
+
   return (
     <div className="bg-white rounded p-4">
       <div className="flex items-center mb-4">
@@ -18,11 +26,14 @@ export default function Tasks() {
           +
         </button>
       </div>
-      {
-        tasks.map((task, index) => (
-           <Task key={task.id} {...task} className={index === tasks.length - 1? '' : "mb-4"} />
-        ))
-      }
+      {tasks.map((task, index) => (
+        <Task
+          key={task.id}
+          {...task}
+          className={index === tasks.length - 1 ? "" : "mb-4"}
+          onUpdate={(updatedTask) => updateTask(updatedTask)}
+        />
+      ))}
     </div>
   );
 }
