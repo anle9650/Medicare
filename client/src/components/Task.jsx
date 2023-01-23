@@ -1,3 +1,5 @@
+import TaskDropdown from "./TaskDropdown"
+
 export default function Task(props) {
 
   function updateTask(event) {
@@ -13,7 +15,7 @@ export default function Task(props) {
 
   return (
     <div className={`bg-gray-100 rounded p-4 ${props.className}`}>
-      <label className="grid grid-cols-12 items-center gap-x-3">
+      <label className="grid grid-cols-12 items-center gap-x-3 cursor-pointer">
         <input
           type="checkbox"
           name="completed"
@@ -28,7 +30,7 @@ export default function Task(props) {
           <p>{props.content}</p>
         </div>
         <span className="italic col-span-3">{props.deadline}</span>
-        <button className="border border-gray-300 rounded px-1.5">...</button>
+        <TaskDropdown onDelete={props.onDelete} />
       </label>
     </div>
   );

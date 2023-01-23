@@ -6,7 +6,7 @@ export default function Dashboard() {
             <div>
                 <span>Dashboard {'>'} </span><span>Summary</span>
             </div>
-            <div className="grid grid-cols-3 gap-x-4 mt-4">
+            <div className="grid grid-cols-3 gap-4 mt-4">
                 <div className="bg-white rounded p-4">
                     <h3>Offline Consultations</h3>
                 </div>
@@ -16,8 +16,6 @@ export default function Dashboard() {
                 <div className="bg-white rounded p-4">
                     <h3>Total Patients</h3>
                 </div>
-            </div>
-            <div className="grid grid-cols-3 gap-x-4 mt-4">
                 <div className="col-span-2">
                     <Tasks />
                 </div>
