@@ -41,7 +41,7 @@ export default function Tasks() {
             className="border border-gray-300 rounded px-2 py-1 ml-2"
             onClick={() => setAddingTask(true)}
           >
-            <i class="fa-solid fa-plus"></i>
+            <i className="fa-solid fa-plus"></i>
           </button>
         </div>
         {tasks.map((task, index) => (

@@ -6,7 +6,7 @@ import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
-    <main class="h-full">
+    <main className="h-full">
       <Navbar />
       <div className="flex h-full">
         <Menu />
