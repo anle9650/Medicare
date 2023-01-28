@@ -11,6 +11,14 @@ export default function Tasks() {
     return taskData;
   }
 
+  function addTask(task) {
+    setTasks((prevTasks) => {
+        const id = prevTasks.length + 1;
+        const newTask = { ...task, id };
+        return [newTask, ...prevTasks];
+    });
+  }
+
   function updateTask(updatedTask) {
     setTasks((oldTasks) =>
       oldTasks.map((oldTask) =>
@@ -29,7 +37,10 @@ export default function Tasks() {
         <div className="flex items-center mb-4">
           <h3 className="text-lg font-bold">Tasks</h3>
           <span className="font-bold ml-auto">New Tasks</span>
-          <button className="border border-gray-300 rounded px-2 py-1 ml-2" onClick={() => setAddingTask(true)}>
+          <button
+            className="border border-gray-300 rounded px-2 py-1 ml-2"
+            onClick={() => setAddingTask(true)}
+          >
             <i class="fa-solid fa-plus"></i>
           </button>
         </div>
@@ -43,7 +54,11 @@ export default function Tasks() {
           />
         ))}
       </div>
-      <AddTaskModal open={addingTask} onClose={() => setAddingTask(false)} />
+      <AddTaskModal
+        open={addingTask}
+        onAdd={(task) => addTask(task)}
+        onClose={() => setAddingTask(false)}
+      />
     </>
   );
 }
