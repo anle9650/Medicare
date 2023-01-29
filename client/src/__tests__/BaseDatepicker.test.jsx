@@ -6,8 +6,8 @@ vi.mock("tailwind-datepicker-react", () => ({
   default: () => <div data-testid="datepicker">Datepicker</div>,
 }));
 
-describe("BaseDatepicker test", () => {
-  it("should fire 'onSelect' event with the formatted date when a date is selected", () => {
+describe("BaseDatepicker", () => {
+  it("should call props.onSelect with the formatted date when a date is selected", () => {
     const MOCK_DATE = new Date();
 
     const FORMATTED_DATE = MOCK_DATE.toLocaleDateString("en-us", {

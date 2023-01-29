@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import BaseDatepicker from "./BaseDatepicker";
 
 export default function AddTaskModal(props) {
-  const [task, setTask] = useState({ content: "", deadline: null });
+  const [task, setTask] = useState({ content: "", deadline: "" });
   const cancelButtonRef = useRef(null);
 
   function updateTask(event) {
@@ -12,7 +12,7 @@ export default function AddTaskModal(props) {
   }
 
   function setDeadline(deadline) {
-    setTask(prevTask => ({ ...prevTask, deadline }))
+    setTask((prevTask) => ({ ...prevTask, deadline }));
   }
 
   function addTask(event) {
@@ -57,8 +57,14 @@ export default function AddTaskModal(props) {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <form className="flex flex-col justify-between h-[32rem]" onSubmit={addTask}>
+              <Dialog.Panel
+                className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+              >
+                <form
+                  className="flex flex-col justify-between h-[32rem]"
+                  onSubmit={addTask}
+                  data-testid="form"
+                >
                   <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title
@@ -75,6 +81,7 @@ export default function AddTaskModal(props) {
                           Description
                         </label>
                         <textarea
+                          id="content"
                           name="content"
                           value={task.content}
                           onChange={updateTask}
@@ -89,7 +96,9 @@ export default function AddTaskModal(props) {
                         </label>
                         <BaseDatepicker
                           name="deadline"
+                          value={task.deadline}
                           onSelect={(date) => setDeadline(date)}
+                          data-testid="datepicker"
                         />
                       </div>
                     </div>
