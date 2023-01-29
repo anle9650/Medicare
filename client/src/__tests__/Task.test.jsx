@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import Task from "../components/Task";
 
 vi.mock("../components/TaskDropdown", () => ({
@@ -51,7 +51,7 @@ describe("Task", () => {
     render(<Task {...MOCK_TASK} onUpdate={updateHandler} />);
 
     const completedCheckbox = screen.getByTestId("completedCheckbox");
-    fireEvent.click(completedCheckbox);
+    completedCheckbox.click();
 
     expect(updateHandler).toHaveBeenCalledWith(
       expect.objectContaining({ ...MOCK_TASK, completed: !MOCK_TASK.completed })
