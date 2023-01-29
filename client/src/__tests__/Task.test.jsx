@@ -5,7 +5,9 @@ import Task from "../components/Task";
 vi.mock("../components/TaskDropdown", () => ({
   default: (props) => (
     <menu data-testid="taskDropdown">
-      <li><button onClick={props.onDelete}>Delete</button></li>
+      <li>
+        <button onClick={props.onDelete}>Delete</button>
+      </li>
     </menu>
   ),
 }));
@@ -25,7 +27,7 @@ describe("Task", () => {
     expect(completedCheckbox.checked).toBeFalsy();
   });
 
-  it("should be checked if the task is not completed", () => {
+  it("should be checked if the task is completed", () => {
     const MOCK_TASK = {
       content: "some task",
       deadline: "January 1, 2023",
@@ -66,7 +68,9 @@ describe("Task", () => {
     const updateHandler = vi.fn();
     const deleteHandler = vi.fn();
 
-    render(<Task {...MOCK_TASK} onDelete={deleteHandler} onUpdate={updateHandler} />);
+    render(
+      <Task {...MOCK_TASK} onDelete={deleteHandler} onUpdate={updateHandler} />
+    );
 
     const deleteButton = screen.getByText("Delete");
     deleteButton.click();
