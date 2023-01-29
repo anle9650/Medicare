@@ -22,6 +22,7 @@ export default function Task(props) {
           checked={props.completed}
           onChange={updateTask}
           className="border-gray-300 rounded p-3"
+          data-testid="completedCheckbox"
         />
         <div className="col-span-7">
           <span className="font-bold">

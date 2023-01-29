@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import BaseDatepicker from "../components/BaseDatepicker";
 
 vi.mock("tailwind-datepicker-react", () => ({
@@ -17,10 +17,8 @@ describe("BaseDatepicker", () => {
     });
 
     const selectHandler = vi.fn();
-    const { getByTestId } = render(
-      <BaseDatepicker onSelect={selectHandler}></BaseDatepicker>
-    );
-    const datepicker = getByTestId("datepicker");
+    render(<BaseDatepicker onSelect={selectHandler}></BaseDatepicker>);
+    const datepicker = screen.getByTestId("datepicker");
 
     fireEvent.change(datepicker, MOCK_DATE);
 
