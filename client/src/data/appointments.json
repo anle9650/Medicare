@@ -1,0 +1,104 @@
+[
+    {
+        "id": 1,
+        "name": "Rice Kotlin",
+        "patient": {
+            "name": "Rice Kotlin"
+        },
+        "scheduledStart": "8:00 AM",
+        "scheduledEnd": "8:20 AM",
+        "purpose": "Cough",
+        "start": "8:00 AM",
+        "end": "8:20 AM"
+    },
+    {
+        "id": 2,
+        "name": "Maya Adamu",
+        "patient": {
+            "name": "Rice Kotlin"
+        },
+        "scheduledStart": "8:20 AM",
+        "scheduledEnd": "8:30 AM",
+        "purpose": "Fever",
+        "start": "8:20 AM",
+        "end": "8:30 AM"
+    },
+    {
+        "id": 3,
+        "name": "Bolaji Abdulraheem",
+        "patient": {
+            "name": "Bolaji Abdulraheem"
+        },
+        "scheduledStart": "8:30 AM",
+        "scheduledEnd": "9:00 AM",
+        "purpose": "General check-up",
+        "start": "8:30 AM",
+        "end": null
+    },
+    {
+        "id": 4,
+        "name": "Abayomi Johnson",
+        "patient": {
+            "name": "Abayomi Johnson"
+        },
+        "scheduledStart": "9:00 AM",
+        "scheduledEnd": "9:30 AM",
+        "purpose": "Headaches",
+        "start": null,
+        "end": null
+    },
+    {
+        "id": 5,
+        "name": "Rebecca Gifts",
+        "patient": {
+            "name": "Rebecca Gifts"
+        },
+        "scheduledStart": "9:30 AM",
+        "scheduledEnd": "10:00 AM",
+        "purpose": "Abdominal pain",
+        "start": null,
+        "end": null
+    },
+    {
+        "id": 6,
+        "name": "ERC Report",
+        "patient": null,
+        "scheduledStart": "10:00 AM",
+        "scheduledEnd": "10:30 AM",
+        "purpose": null,
+        "start": null,
+        "end": null
+    },
+    {
+        "id": 7,
+        "name": "Consultation meeting",
+        "patient": null,
+        "scheduledStart": "10:30 AM",
+        "scheduledEnd": "11:00 AM",
+        "purpose": null,
+        "start": null,
+        "end": null
+    },
+    {
+        "id": 8,
+        "name": "Victory Jones",
+        "patient": {
+            "name": "Victory Jones"
+        },
+        "scheduledStart": "11:00 AM",
+        "scheduledEnd": "11:30 AM",
+        "purpose": "Sore throat",
+        "start": null,
+        "end": null
+    },
+    {
+        "id": 9,
+        "name": "Board meeting",
+        "patient": null,
+        "scheduledStart": "11:30 AM",
+        "scheduledEnd": "12:00 PM",
+        "purpose": null,
+        "start": null,
+        "end": null
+    }
+]

@@ -36,9 +36,8 @@ export default function Tasks() {
       <div className="bg-white rounded p-4">
         <div className="flex items-center mb-4">
           <h3 className="text-lg font-bold">Tasks</h3>
-          <span className="font-bold ml-auto">New Tasks</span>
           <button
-            className="border border-gray-300 rounded px-2 py-1 ml-2"
+            className="text-indigo-600 border border-gray-300 rounded px-2 py-1 ml-auto hover:bg-gray-50"
             onClick={() => setAddingTask(true)}
           >
             <i className="fa-solid fa-plus"></i>

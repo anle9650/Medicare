@@ -33,7 +33,7 @@ describe("Tasks", () => {
     expect(await screen.findByText(MOCK_TASK.content));
   });
 
-  it("should remove the task if a task is deleted", async () => {
+  it("should remove the task if a task is deleted", () => {
     render(<Tasks />);
 
     const taskToDelete = screen.getAllByTestId("task")[0];
