@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AppointmentGroup from "./AppointmentGroup";
-import Appointment from "./Appointment";
 import appointmentData from "../data/appointments.json";
 
 function getHour(time) {
@@ -8,15 +7,14 @@ function getHour(time) {
 }
 
 export default function Schedule() {
-  const NUMBER_OF_WORK_HOURS_IN_DAY = 10;
-  const START_TIME = 8;
-
-  const HOUR_START_TIMES = [...Array(NUMBER_OF_WORK_HOURS_IN_DAY).keys()].map(
-    (i) => i + START_TIME
-  );
-
   const [appointments, setAppointments] = useState(getAppointments());
   const [addingAppointment, setAddingAppointment] = useState(false);
+
+  const hourStartTimes = [
+    ...new Set(
+      appointments.map((appointment) => getHour(appointment.scheduledStart))
+    ),
+  ];
 
   const groupedAppointments = groupAppointmentsByHour();
 
@@ -27,7 +25,7 @@ export default function Schedule() {
   function groupAppointmentsByHour() {
     const groupedAppointments = {};
 
-    HOUR_START_TIMES.forEach((hourStartTime) => {
+    hourStartTimes.forEach((hourStartTime) => {
       groupedAppointments[hourStartTime] = appointments.filter(
         (appointment) => getHour(appointment.scheduledStart) === hourStartTime
       );
@@ -47,7 +45,7 @@ export default function Schedule() {
           <i className="fa-solid fa-plus"></i>
         </button>
       </div>
-      {HOUR_START_TIMES.map((hourStartTime) => (
+      {hourStartTimes.map((hourStartTime) => (
         <AppointmentGroup
           key={hourStartTime}
           startTime={hourStartTime}
