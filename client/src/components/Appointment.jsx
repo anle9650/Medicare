@@ -39,6 +39,7 @@ export default function Appointment(props) {
           props.isSelected ? "border" : ""
         } ${props.className}`}
         onClick={props.onSelect}
+        data-testid="appointmentContainer"
       >
         <div className="col-span-4 flex items-center">
           <div
