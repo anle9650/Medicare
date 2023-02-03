@@ -34,6 +34,15 @@ export default function Schedule() {
     return groupedAppointments;
   }
 
+  function selectAppointment(selected) {
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) => ({
+        ...appointment,
+        isSelected: appointment.id === selected.id,
+      }))
+    );
+  }
+
   return (
     <div className="bg-white rounded p-4">
       <div className="flex items-center mb-4">
@@ -50,6 +59,7 @@ export default function Schedule() {
           key={hourStartTime}
           startTime={hourStartTime}
           appointments={groupedAppointments[hourStartTime]}
+          onSelectAppointment={(appointment) => selectAppointment(appointment)}
         />
       ))}
     </div>
