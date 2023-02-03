@@ -38,7 +38,10 @@ export default function Schedule() {
     setAppointments((prevAppointments) =>
       prevAppointments.map((appointment) => ({
         ...appointment,
-        isSelected: appointment.id === selected.id,
+        isSelected:
+          appointment.id === selected.id
+            ? !appointment.isSelected
+            : false,
       }))
     );
   }
