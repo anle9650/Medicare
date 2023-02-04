@@ -14,16 +14,16 @@ export default function TaskEditModal(props) {
     setTask((prevTask) => ({ ...prevTask, deadline }));
   }
 
-  function addTask(event) {
+  function handleSubmit(event) {
     event.preventDefault();
 
     if (!task.content || !task.deadline) {
       return;
     }
 
-    props.onAdd({ ...task });
-    setTask({ content: "", deadline: null });
+    props.onSubmit({ ...task });
     props.onClose();
+    setTask({ content: "", deadline: null });
   }
 
   return (
@@ -31,7 +31,7 @@ export default function TaskEditModal(props) {
       <BaseModal.Header>Add Task</BaseModal.Header>
       <BaseModal.Body>
         <div className="flex flex-col justify-between h-[32rem] mt-2">
-          <form id="taskForm" onSubmit={addTask} data-testid="form">
+          <form id="taskForm" onSubmit={handleSubmit} data-testid="form">
             <label
               htmlFor="content"
               className="block text-sm font-medium text-gray-700"

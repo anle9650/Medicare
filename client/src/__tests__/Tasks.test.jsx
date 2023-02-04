@@ -10,7 +10,7 @@ const MOCK_TASK = {
 
 vi.mock("../components/TaskEditModal", () => ({
   default: (props) => (
-    <div data-testid="taskEditModal" onClick={() => props.onAdd(MOCK_TASK)}>
+    <div data-testid="taskEditModal" onClick={() => props.onSubmit(MOCK_TASK)}>
       Add Task Modal
     </div>
   ),

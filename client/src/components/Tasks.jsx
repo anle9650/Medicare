@@ -5,7 +5,7 @@ import taskData from "../data/tasks.json";
 
 export default function Tasks() {
   const [tasks, setTasks] = useState(getTasks());
-  const [addingTask, setAddingTask] = useState(false);
+  const [editingTask, setEditingTask] = useState(false);
 
   function getTasks() {
     return taskData;
@@ -38,7 +38,7 @@ export default function Tasks() {
           <h3 className="text-lg font-bold">Tasks</h3>
           <button
             className="text-indigo-600 border border-gray-300 rounded px-2 py-1 ml-auto hover:bg-gray-50"
-            onClick={() => setAddingTask(true)}
+            onClick={() => setEditingTask(true)}
           >
             <i className="fa-solid fa-plus"></i>
           </button>
@@ -54,9 +54,9 @@ export default function Tasks() {
         ))}
       </div>
       <TaskEditModal
-        open={addingTask}
-        onAdd={(task) => addTask(task)}
-        onClose={() => setAddingTask(false)}
+        open={editingTask}
+        onSubmit={(task) => addTask(task)}
+        onClose={() => setEditingTask(false)}
       />
     </>
   );

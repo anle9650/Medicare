@@ -14,16 +14,16 @@ beforeEach(() => {
 });
 
 describe("TaskEditModal", () => {
-  it("should call props.addTask with the new task when the form is submitted with all required fields", async () => {
+  it("should call props.onSubmit with the new task when the form is submitted with all required fields", async () => {
     const MOCK_CONTENT = "some task";
 
-    const addHandler = vi.fn();
+    const submitHandler = vi.fn();
     const closeHandler = vi.fn();
 
     render(
       <TaskEditModal
         open={true}
-        onAdd={addHandler}
+        onSubmit={submitHandler}
         onClose={closeHandler}
       ></TaskEditModal>
     );
@@ -38,25 +38,25 @@ describe("TaskEditModal", () => {
     await screen.findByText(MOCK_CONTENT);
     fireEvent.submit(form);
 
-    expect(addHandler).toHaveBeenCalledWith(
+    expect(submitHandler).toHaveBeenCalledWith(
       expect.objectContaining({ content: MOCK_CONTENT })
     );
   });
 
-  it("should not call props.addTask when the form is submitted without all required fields", async () => {
-    const addHandler = vi.fn();
+  it("should not call props.onSubmit when the form is submitted without all required fields", async () => {
+    const submitHandler = vi.fn();
     const closeHandler = vi.fn();
 
     render(
       <TaskEditModal
         open={true}
-        onAdd={addHandler}
+        onSubmit={submitHandler}
         onClose={closeHandler}
       ></TaskEditModal>
     );
 
     const form = screen.getByTestId("form");
     fireEvent.submit(form);
-    expect(addHandler).not.toHaveBeenCalled();
+    expect(submitHandler).not.toHaveBeenCalled();
   });
 });
