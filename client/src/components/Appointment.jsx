@@ -58,6 +58,7 @@ export default function Appointment(props) {
         <div className="col-span-4 flex items-center">
           <div
             className={`bg-${getStatusColor()} rounded-full p-1.5 mr-2`}
+            data-testid="statusIndicator"
           ></div>
           <strong>{props.scheduledStart}</strong>
         </div>

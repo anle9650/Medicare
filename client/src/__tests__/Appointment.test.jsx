@@ -39,6 +39,16 @@ describe("Appointment", () => {
     expect(appointmentDetail).toBeNull();
   });
 
+  it("should show a blue indicator if the appointment has not started yet", () => {
+    MOCK_APPOINTMENT.isSelected = true;
+    MOCK_APPOINTMENT.start = null;
+    MOCK_APPOINTMENT.end = null;
+
+    render(<Appointment {...MOCK_APPOINTMENT} />);
+    const statusIndicator = screen.getByTestId("statusIndicator");
+    expect(statusIndicator.className).toContain('blue');
+  });
+
   it("should show 'Begin Appointment' if the appointment has not started yet", () => {
     MOCK_APPOINTMENT.isSelected = true;
     MOCK_APPOINTMENT.start = null;
@@ -61,6 +71,16 @@ describe("Appointment", () => {
     expect(startHandler).toHaveBeenCalled();
   });
 
+  it("should show a green indicator if the appointment has started, but has not ended yet", () => {
+    MOCK_APPOINTMENT.isSelected = true;
+    MOCK_APPOINTMENT.start = "8:00 AM";
+    MOCK_APPOINTMENT.end = null;
+
+    render(<Appointment {...MOCK_APPOINTMENT} />);
+    const statusIndicator = screen.getByTestId("statusIndicator");
+    expect(statusIndicator.className).toContain('green');
+  });
+
   it("should show 'End Appointment' if the appointment has started, but has not ended yet", () => {
     MOCK_APPOINTMENT.isSelected = true;
     MOCK_APPOINTMENT.start = "8:00 AM";
@@ -81,6 +101,16 @@ describe("Appointment", () => {
     fireEvent.click(endAppointment);
     
     expect(endHandler).toHaveBeenCalled();
+  });
+
+  it("should show a grey indicator if the appointment has started and ended", () => {
+    MOCK_APPOINTMENT.isSelected = true;
+    MOCK_APPOINTMENT.start = "8:00 AM";
+    MOCK_APPOINTMENT.end = "9:00 AM";
+
+    render(<Appointment {...MOCK_APPOINTMENT} />);
+    const statusIndicator = screen.getByTestId("statusIndicator");
+    expect(statusIndicator.className).toContain('slate');
   });
 
   it("should show neither 'Begin Appointment' nor 'End Appointment' if the appointment has already started and ended", () => {
