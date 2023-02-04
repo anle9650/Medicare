@@ -8,9 +8,9 @@ const MOCK_TASK = {
   complete: false,
 };
 
-vi.mock("../components/AddTaskModal", () => ({
+vi.mock("../components/TaskEditModal", () => ({
   default: (props) => (
-    <div data-testid="addTaskModal" onClick={() => props.onAdd(MOCK_TASK)}>
+    <div data-testid="taskEditModal" onClick={() => props.onAdd(MOCK_TASK)}>
       Add Task Modal
     </div>
   ),
@@ -28,8 +28,8 @@ vi.mock("../components/Task", () => ({
 describe("Tasks", () => {
   it("should display the newly added task when a task is added", async () => {
     render(<Tasks />);
-    const addTaskModal = screen.getByTestId("addTaskModal");
-    fireEvent.click(addTaskModal);
+    const taskEditModal = screen.getByTestId("taskEditModal");
+    fireEvent.click(taskEditModal);
     expect(await screen.findByText(MOCK_TASK.content));
   });
 

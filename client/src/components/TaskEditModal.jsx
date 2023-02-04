@@ -2,7 +2,7 @@ import { useState } from "react";
 import BaseDatepicker from "./BaseDatepicker";
 import BaseModal from "./BaseModal";
 
-export default function AddTaskModal(props) {
+export default function TaskEditModal(props) {
   const [task, setTask] = useState({ content: "", deadline: "" });
 
   function updateTask(event) {

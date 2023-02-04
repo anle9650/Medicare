@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import AddTaskModal from "../components/AddTaskModal";
+import TaskEditModal from "../components/TaskEditModal";
 
 beforeEach(() => {
   // IntersectionObserver isn't available in test environment
@@ -13,7 +13,7 @@ beforeEach(() => {
   window.IntersectionObserver = mockIntersectionObserver;
 });
 
-describe("AddTaskModal", () => {
+describe("TaskEditModal", () => {
   it("should call props.addTask with the new task when the form is submitted with all required fields", async () => {
     const MOCK_CONTENT = "some task";
 
@@ -21,11 +21,11 @@ describe("AddTaskModal", () => {
     const closeHandler = vi.fn();
 
     render(
-      <AddTaskModal
+      <TaskEditModal
         open={true}
         onAdd={addHandler}
         onClose={closeHandler}
-      ></AddTaskModal>
+      ></TaskEditModal>
     );
 
     const form = screen.getByTestId("form");
@@ -48,11 +48,11 @@ describe("AddTaskModal", () => {
     const closeHandler = vi.fn();
 
     render(
-      <AddTaskModal
+      <TaskEditModal
         open={true}
         onAdd={addHandler}
         onClose={closeHandler}
-      ></AddTaskModal>
+      ></TaskEditModal>
     );
 
     const form = screen.getByTestId("form");

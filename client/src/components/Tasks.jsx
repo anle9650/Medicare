@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AddTaskModal from "./AddTaskModal";
+import TaskEditModal from "./TaskEditModal";
 import Task from "./Task";
 import taskData from "../data/tasks.json";
 
@@ -53,7 +53,7 @@ export default function Tasks() {
           />
         ))}
       </div>
-      <AddTaskModal
+      <TaskEditModal
         open={addingTask}
         onAdd={(task) => addTask(task)}
         onClose={() => setAddingTask(false)}
