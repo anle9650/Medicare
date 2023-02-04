@@ -3,8 +3,8 @@ export default function Appointment(props) {
   const inProgress = props.start && !props.end;
   const notStarted = !props.start;
 
-  const appointmentInfo = (
-    <div className="border p-3 rounded-lg mt-3">
+  const appointmentDetails = (
+    <div className="border p-3 rounded-lg mt-3" data-testid="appointmentDetails">
       <div className="grid grid-cols-3">
         <div className="col-span-1 font-medium leading-loose">
           {props.patient && <p>Patient</p>}
@@ -70,7 +70,7 @@ export default function Appointment(props) {
           />
         </button>
       </div>
-      {props.isSelected && appointmentInfo}
+      {props.isSelected && appointmentDetails}
     </>
   );
 }
