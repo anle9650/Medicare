@@ -39,10 +39,52 @@ export default function Schedule() {
       prevAppointments.map((appointment) => ({
         ...appointment,
         isSelected:
-          appointment.id === selected.id
-            ? !appointment.isSelected
-            : false,
+          appointment.id === selected.id ? !appointment.isSelected : false,
       }))
+    );
+  }
+
+  function startAppointment(toStart) {
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) => {
+        if (appointment.id === toStart.id) {
+          const today = new Date();
+          const time =
+            today.getHours() +
+            ":" +
+            today.getMinutes() +
+            ":" +
+            today.getSeconds();
+
+          return {
+            ...appointment,
+            start: time,
+          };
+        }
+        return appointment;
+      })
+    );
+  }
+
+  function endAppointment(toEnd) {
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) => {
+        if (appointment.id === toEnd.id) {
+          const today = new Date();
+          const time =
+            today.getHours() +
+            ":" +
+            today.getMinutes() +
+            ":" +
+            today.getSeconds();
+
+          return {
+            ...appointment,
+            end: time,
+          };
+        }
+        return appointment;
+      })
     );
   }
 
@@ -63,6 +105,8 @@ export default function Schedule() {
           startTime={hourStartTime}
           appointments={groupedAppointments[hourStartTime]}
           onSelectAppointment={(appointment) => selectAppointment(appointment)}
+          onStartAppointment={(appointment) => startAppointment(appointment)}
+          onEndAppointment={(appointment) => endAppointment(appointment)}
         />
       ))}
     </div>

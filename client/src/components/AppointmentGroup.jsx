@@ -17,6 +17,8 @@ export default function AppointmentGroup(props) {
             key={appointment.id}
             {...appointment}
             onSelect={() => props.onSelectAppointment(appointment)}
+            onStart={() => props.onStartAppointment(appointment)}
+            onEnd={() => props.onEndAppointment(appointment)}
             className={index === 0 ? '' : 'mt-3'}
           />
         ))}
