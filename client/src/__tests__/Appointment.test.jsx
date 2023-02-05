@@ -126,4 +126,15 @@ describe("Appointment", () => {
     const endAppointment = screen.queryByText("End Appointment");
     expect(endAppointment).toBeNull();
   });
+
+  it("should call props.onDelete if delete button is clicked", () => {
+    MOCK_APPOINTMENT.isSelected = true;
+
+    const deleteHandler = vi.fn();
+    render(<Appointment {...MOCK_APPOINTMENT} onDelete={deleteHandler} />);
+    const deleteButton = screen.getByTestId("deleteButton");
+    fireEvent.click(deleteButton);
+
+    expect(deleteHandler).toHaveBeenCalled();
+  });
 });
