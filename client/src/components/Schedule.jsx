@@ -1,6 +1,9 @@
 import { useState } from "react";
 import AppointmentGroup from "./AppointmentGroup";
 import AppointmentEditModal from "./AppointmentEditModal";
+import BaseModal from "./BaseModal";
+import ButtonPrimary from "./ButtonPrimary";
+import ButtonSecondary from "./ButtonSecondary";
 import appointmentData from "../data/appointments.json";
 
 function getHour(time) {
@@ -10,6 +13,7 @@ function getHour(time) {
 export default function Schedule() {
   const [appointments, setAppointments] = useState(getAppointments());
   const [editingAppointment, setEditingAppointment] = useState(false);
+  const [appointmentToDelete, setAppointmentToDelete] = useState(null);
 
   const hourStartTimes = [
     ...new Set(
@@ -93,6 +97,17 @@ export default function Schedule() {
     );
   }
 
+  function confirmDeleteAppointment(toDelete) {
+    setAppointmentToDelete(toDelete);
+  }
+
+  function deleteAppointment() {
+    setAppointments((prevAppointments) =>
+      prevAppointments.filter((appointment) => appointment !== appointmentToDelete)
+    );
+    setAppointmentToDelete(null);
+  }
+
   return (
     <>
       <div className="bg-white rounded p-4">
@@ -115,14 +130,36 @@ export default function Schedule() {
             }
             onStartAppointment={(appointment) => startAppointment(appointment)}
             onEndAppointment={(appointment) => endAppointment(appointment)}
+            onDeleteAppointment={(appointment) =>
+              confirmDeleteAppointment(appointment)
+            }
           />
         ))}
       </div>
+
       <AppointmentEditModal
         open={editingAppointment}
         onSubmit={(appointment) => addAppointment(appointment)}
         onClose={() => setEditingAppointment(false)}
       />
+      
+      <BaseModal
+        open={!!appointmentToDelete}
+        onClose={() => setAppointmentToDelete(null)}
+      >
+        <BaseModal.Body>
+          Are you sure you want to delete this appointment?
+        </BaseModal.Body>
+        <BaseModal.Footer>
+          <ButtonPrimary onClick={deleteAppointment}>Yes, I'm sure</ButtonPrimary>
+          <ButtonSecondary
+            className="mr-2"
+            onClick={() => setAppointmentToDelete(null)}
+          >
+            Cancel
+          </ButtonSecondary>
+        </BaseModal.Footer>
+      </BaseModal>
     </>
   );
 }

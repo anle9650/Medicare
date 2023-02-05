@@ -4,7 +4,10 @@ export default function Appointment(props) {
   const notStarted = !props.start;
 
   const appointmentDetails = (
-    <div className="border p-3 rounded-lg mt-3" data-testid="appointmentDetails">
+    <div
+      className="border p-3 rounded-lg mt-3"
+      data-testid="appointmentDetails"
+    >
       <div className="grid grid-cols-3">
         <div className="col-span-1 font-medium leading-loose">
           {props.patient && <p>Patient</p>}
@@ -20,8 +23,25 @@ export default function Appointment(props) {
         </div>
       </div>
       <hr className="my-2" />
-      <div className="flex">
-        <button className="mr-auto">Delete</button>
+      <div className="flex items-center">
+        <button
+          className="border rounded-lg px-2 mr-3"
+          title="Delete appointment"
+          onClick={props.onDelete}
+        >
+          <i className="fa-regular fa-trash text-sm text-red-500"></i>
+        </button>
+        {props.patient && (
+          <button className="border rounded-lg px-2 mr-3" title="View patient">
+            <i className="fa-regular fa-user text-sm text-sky-500"></i>
+          </button>
+        )}
+        <button
+          className="border rounded-lg px-2 mr-auto"
+          title="Edit appointment"
+        >
+          <i className="fa-regular fa-pen-to-square text-sm text-blue-500"></i>
+        </button>
         {!hasEnded && (
           <button
             className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
