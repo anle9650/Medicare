@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name": "Mary Joseph",
+        "diagnosis": "Malaria",
+        "status": "Recovered",
+        "appointments": [
+            {
+                "date": "10/20/2022"
+            },
+            {
+                "date": "1/12/2023"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Amalia Jones",
+        "diagnosis": "Stroke",
+        "status": "Awaiting Surgery",
+        "appointments": [
+            {
+                "date": "11/10/2022"
+            },
+            {
+                "date": "1/12/2023"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Damilola Oyin",
+        "diagnosis": "Liver Failure",
+        "status": "On Treatment",
+        "appointments": [
+            {
+                "date": "9/10/2022"
+            },
+            {
+                "date": "1/11/2023"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Selim Jubril",
+        "diagnosis": "Typhoid",
+        "status": "Awaiting Surgery",
+        "appointments": [
+            {
+                "date": "12/10/2022"
+            },
+            {
+                "date": "2/12/2023"
+            }
+        ]
+    }
+]

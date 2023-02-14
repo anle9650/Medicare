@@ -1,4 +1,4 @@
-export default function Menu() {
+export default function Menu(props) {
   return (
     <aside className="w-64 h-full border-r" aria-label="Sidebar">
       <div className="px-3 py-4 overflow-y-auto">
@@ -8,6 +8,7 @@ export default function Menu() {
             <a
               href="#"
               className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
+              onClick={() => props.onSelect("dashboard")}
             >
               <svg
                 aria-hidden="true"
@@ -67,6 +68,7 @@ export default function Menu() {
             <a
               href="#"
               className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100"
+              onClick={() => props.onSelect("patients")}
             >
               <svg
                 aria-hidden="true"
