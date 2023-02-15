@@ -29,7 +29,9 @@ export default function Patients() {
 
   return (
     <section className="bg-gray-100 w-full p-5">
-      <label htmlFor="table-search" className="sr-only">Search</label>
+      <label htmlFor="table-search" className="sr-only">
+        Search
+      </label>
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg
@@ -110,7 +112,9 @@ export default function Patients() {
                 <td className="px-6 py-4">{patient.appointments[0].date}</td>
                 <td className="px-6 py-4">{patient.appointments[1].date}</td>
                 <td className="px-6 py-4">
-                  <button>...</button>
+                  <button className="px-4 py-2 text-gray-500">
+                    <i className="fa-solid fa-ellipsis" />
+                  </button>
                 </td>
               </tr>
             ))}
