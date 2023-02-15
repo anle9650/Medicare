@@ -70,8 +70,8 @@ export default function Appointment(props) {
   return (
     <>
       <div
-        className={`grid grid-cols-12 p-2 cursor-pointer hover:border rounded-lg ${
-          props.isSelected ? "border" : ""
+        className={`grid grid-cols-12 p-2 cursor-pointer border hover:border-gray-200 rounded-lg ${
+          props.isSelected ? "border-solid" : "border-transparent"
         } ${props.className}`}
         onClick={props.onSelect}
         data-testid="appointmentContainer"
