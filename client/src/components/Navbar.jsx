@@ -1,4 +1,8 @@
+import BaseDatepicker from "./BaseDatepicker"
 
+function selectDate(selected) {
+
+}
 
 export default function Navbar() {
     return (
@@ -9,7 +13,7 @@ export default function Navbar() {
                 <p>John Doe</p>
                 <p>General Practitioner</p>
             </div>
-            <input type="date" className="rounded border-gray-300 w-full" />
+            <BaseDatepicker onSelect={selectDate} />
         </nav>
     )
 }
