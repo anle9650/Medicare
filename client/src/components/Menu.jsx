@@ -16,7 +16,7 @@ export default function Menu(props) {
   }
 
   return (
-    <aside className="w-64 h-full border-r" aria-label="Sidebar">
+    <aside className="bg-white w-64 h-full border-r" aria-label="Sidebar">
       <div className="px-3 py-4 overflow-y-auto">
         <h2 className="uppercase text-gray-400 text-sm p-2">Menu</h2>
         <ul className="space-y-2">
@@ -95,6 +95,7 @@ export default function Menu(props) {
               className={`flex items-center p-2 text-base font-normal ${getClass(
                 "messages"
               )} rounded-lg hover:bg-gray-100`}
+              onClick={() => updateSelected("messages")}
             >
               <i className="fas fa-envelope ml-1" />
               <span className="flex-1 ml-3 whitespace-nowrap">Messages</span>

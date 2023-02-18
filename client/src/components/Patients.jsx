@@ -28,7 +28,7 @@ export default function Patients() {
   }
 
   return (
-    <section className="bg-gray-100 w-full p-5">
+    <section>
       <label htmlFor="table-search" className="sr-only">
         Search
       </label>
