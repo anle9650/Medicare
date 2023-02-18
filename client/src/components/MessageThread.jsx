@@ -31,7 +31,7 @@ export default function MessageThread(props) {
         <button className="ml-auto">...</button>
       </div>
       <div className="grow flex flex-col bg-white p-3 rounded mt-1">
-        <div className="overflow-y-auto">
+        <div className="max-h-[78vh] overflow-y-auto">
             {messages.map((message, index) => (
               <Message {...message} className={index === 0 ? "" : "mt-2"} />
             ))}
