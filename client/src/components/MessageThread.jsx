@@ -24,16 +24,18 @@ export default function MessageThread(props) {
   }
 
   return (
-    <div className={props.className}>
+    <div className="flex flex-col">
       <div className="flex bg-white p-4 rounded">
         <button>{"<"}</button>
         <span className="ml-3">Damilola Oyin</span>
         <button className="ml-auto">...</button>
       </div>
       <div className="grow flex flex-col bg-white p-3 rounded mt-1">
-        {messages.map((message, index) => (
-          <Message {...message} className={index === 0 ? "" : "mt-2"} />
-        ))}
+        <div className="overflow-y-auto">
+            {messages.map((message, index) => (
+              <Message {...message} className={index === 0 ? "" : "mt-2"} />
+            ))}
+        </div>
         <div className="flex relative mt-auto">
           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
