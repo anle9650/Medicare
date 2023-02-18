@@ -1,0 +1,22 @@
+[
+    {
+        "type": "outgoing",
+        "content": "Hello, how are you doing?"
+    },
+    {
+        "type": "incoming",
+        "content": "Great, when can we have the meeting?"
+    },
+    {
+        "type": "outgoing",
+        "content": "Are you available right now?"
+    },
+    {
+        "type": "incoming",
+        "content": "Yeah, let's have a video call."
+    },
+    {
+        "type": "outgoing",
+        "content": "That would be great."
+    }
+]
