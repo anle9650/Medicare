@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import messageData from "../data/messages.json";
 import Message from "./Message";
@@ -5,6 +6,11 @@ import Message from "./Message";
 export default function MessageThread(props) {
   const [messages, setMessages] = useState(getMessages());
   const [messageContent, setMessageContent] = useState("");
+
+  useEffect(() => {
+    const thread = document.querySelector("#thread");
+    thread.scrollTop = thread.scrollHeight;
+  }, [messages]);
 
   function getMessages() {
     return messageData;
@@ -17,7 +23,11 @@ export default function MessageThread(props) {
   function sendMessage() {
     setMessages((prevMessages) => [
       ...prevMessages,
-      { type: "outgoing", content: messageContent },
+      {
+        id: prevMessages[prevMessages.length - 1].id + 1,
+        type: "outgoing",
+        content: messageContent.trim(),
+      },
     ]);
 
     setMessageContent("");
@@ -31,26 +41,22 @@ export default function MessageThread(props) {
         <button className="ml-auto">...</button>
       </div>
       <div className="grow flex flex-col bg-white p-3 rounded mt-1">
-        <div className="max-h-[78vh] overflow-y-auto">
-            {messages.map((message, index) => (
-              <Message {...message} className={index === 0 ? "" : "mt-2"} />
-            ))}
+        <div
+          id="thread"
+          className="max-h-[78vh] overflow-y-auto"
+          data-testid="thread"
+        >
+          {messages.map((message, index) => (
+            <Message
+              key={message.id}
+              {...message}
+              className={index === 0 ? "" : "mt-2"}
+            />
+          ))}
         </div>
         <div className="flex relative mt-auto">
-          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              className="w-5 h-5 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3">
+            <i className="fa fa-pen text-slate-400"></i>
           </div>
           <input
             type="text"
@@ -59,9 +65,17 @@ export default function MessageThread(props) {
             className="grow p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Write a message..."
             onChange={updateMessageContent}
+            data-testid="messageInput"
           />
           <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <button onClick={sendMessage}>Send</button>
+            <button
+              className="bg-indigo-600 text-white text-sm p-1 px-2.5 rounded-full hover:bg-indigo-700 disabled:bg-indigo-500"
+              onClick={sendMessage}
+              disabled={!messageContent.trim()}
+              data-testid="sendButton"
+            >
+              <i className="fas fa-arrow-up"></i>
+            </button>
           </div>
         </div>
       </div>
