@@ -18,6 +18,7 @@ export default function MessageThreadList(props) {
             className={`cursor-pointer p-3 sm:pb-4 rounded ${
               isActive(thread) ? "bg-blue-400" : ""
             }`}
+            data-testid="threadItem"
           >
             <div className="flex items-center space-x-4">
               <div className="flex-shrink-0">
