@@ -14,7 +14,7 @@ function App() {
       {/* <Navbar /> */}
       <div className="flex h-full">
         <Menu onSelect={(view) => setView(view)} />
-        <div className="grow p-5">
+        <div className="flex-1 p-5">
           {view === "dashboard" && <Dashboard />}
           {view === "patients" && <Patients />}
           {view === "messages" && <Messages />}
