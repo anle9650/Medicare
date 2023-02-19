@@ -2,6 +2,9 @@ import photo from "../assets/damilola.png";
 
 export default function MessageThreadList(props) {
   function isActive(thread) {
+    if (!props.activeThread) {
+        return false;
+    }
     return thread.id === props.activeThread.id;
   }
 
@@ -18,6 +21,7 @@ export default function MessageThreadList(props) {
             className={`cursor-pointer p-3 sm:pb-4 rounded ${
               isActive(thread) ? "bg-blue-400" : ""
             }`}
+            onClick={() => props.onSelect(thread.id)}
             data-testid="threadItem"
           >
             <div className="flex items-center space-x-4">

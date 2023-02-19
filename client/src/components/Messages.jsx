@@ -5,8 +5,8 @@ import MessageThreadList from "./MessageThreadList";
 
 export default function Messages() {
   const [threads, setThreads] = useState(getThreads());
-  const [activeThreadIndex, setActiveThreadIndex] = useState(0);
-  const activeThread = threads[activeThreadIndex] ?? null;
+  const [activeThreadId, setActiveThreadId] = useState(threads[0]?.id ?? null);
+  const activeThread = threads.find((thread) => thread.id === activeThreadId);
 
   function getThreads() {
     return threadData;
@@ -28,7 +28,11 @@ export default function Messages() {
 
   return (
     <section className="h-full grid grid-cols-2 gap-1">
-      <MessageThreadList threads={threads} activeThread={activeThread} />
+      <MessageThreadList
+        threads={threads}
+        activeThread={activeThread}
+        onSelect={(selectedThreadId) => setActiveThreadId(selectedThreadId)}
+      />
       <div className="flex flex-col">
         <div className="flex bg-white p-4 rounded">
           <button>{"<"}</button>

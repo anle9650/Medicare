@@ -92,4 +92,18 @@ describe("MessageThreadList", () => {
       ACTIVE_THREAD.patient.name
     );
   });
+
+  it("should call props.onSelect with the selected thread id when a thread is selected", () => {
+    const SELECTED_THREAD = THREADS[1];
+    const selectHandler = vi.fn();
+
+    render(
+      <MessageThreadList threads={THREADS} onSelect={selectHandler} />
+    );
+
+    const threadItems = screen.getAllByTestId("threadItem");
+    const selectedThreadItem = threadItems.find(threadItem => threadItem.textContent.includes(SELECTED_THREAD.patient.name));
+    fireEvent.click(selectedThreadItem);
+    expect(selectHandler).toHaveBeenCalledWith(SELECTED_THREAD.id);
+  });
 });
