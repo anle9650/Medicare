@@ -32,7 +32,7 @@ export default function Messages() {
       <div className="flex flex-col">
         <div className="flex bg-white p-4 rounded">
           <button>{"<"}</button>
-          <span className="ml-3">Damilola Oyin</span>
+          <span className="ml-3">{activeThread.patient.name}</span>
           <button className="ml-auto">...</button>
         </div>
         <MessageThread
