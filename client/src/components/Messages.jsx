@@ -11,37 +11,42 @@ export default function Messages() {
   const [showNewThread, setShowNewThread] = useState(threads.length === 0);
 
   const newThread = (
-    <div
-      className={`flex items-center space-x-4 px-3 py-5 rounded cursor-pointer ${
-        activeThreadId ? "" : "bg-blue-400"
-      }`}
-      onClick={() => setActiveThreadId(null)}
-    >
-      <div className="flex-shrink-0">
-        <img
-          className="w-8 h-8 rounded-full object-cover"
-          src={avatarPerson}
-          alt="User avatar"
-        />
-      </div>
-      <div className="flex-1 min-w-0">
-        <p
-          className={`font-medium truncate dark:text-white ${
-            activeThreadId ? "text-gray-900" : "text-white"
-          }`}
-        >
-          New Message
-        </p>
-      </div>
-      <button
-        className={`dark:text-white ${
-          activeThreadId ? "text-gray-500" : "text-white"
+    <>
+      <div
+        className={`flex items-center space-x-4 px-3 py-5 rounded cursor-pointer ${
+          activeThreadId ? "" : "bg-blue-400"
         }`}
-        onClick={() => setShowNewThread(false)}
+        onClick={() => setActiveThreadId(null)}
       >
-        x
-      </button>
-    </div>
+        <div className="flex-shrink-0">
+          <img
+            className="w-8 h-8 rounded-full object-cover"
+            src={avatarPerson}
+            alt="User avatar"
+          />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p
+            className={`font-medium truncate dark:text-white ${
+              activeThreadId ? "text-gray-900" : "text-white"
+            }`}
+          >
+            New Message
+          </p>
+        </div>
+        {threads.length && (
+          <button
+            className={`dark:text-white ${
+              activeThreadId ? "text-gray-500" : "text-white"
+            }`}
+            onClick={() => setShowNewThread(false)}
+          >
+            x
+          </button>
+        )}
+      </div>
+      {threads.length && <hr />}
+    </>
   );
 
   function getThreads() {
@@ -79,8 +84,7 @@ export default function Messages() {
             <i className="far fa-edit text-slate-500 text-lg"></i>
           </button>
         </div>
-        {showNewThread && (newThread)}
-        {showNewThread && threads.length && <hr />}
+        {showNewThread && newThread}
         <MessageThreadList
           threads={threads}
           activeThread={activeThread}
