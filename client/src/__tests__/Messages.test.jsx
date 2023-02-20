@@ -1,9 +1,9 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, findByText } from "@testing-library/react";
 import Messages from "../components/Messages";
 
 const MOCK_MESSAGE = {
-  id: 10,
+  id: -1,
   type: "outgoing",
   content: "test message",
 };
@@ -28,7 +28,7 @@ vi.mock("../components/MessageThread", () => ({
   default: vi.fn((props) => (
     <>
       <ul data-testid="activeThread">
-        {props.messages.map((message) => (
+        {props.messages?.map((message) => (
           <li key={message.id}>{message.content}</li>
         ))}
       </ul>
@@ -38,6 +38,13 @@ vi.mock("../components/MessageThread", () => ({
 }));
 
 describe("Messages", () => {
+  it("should show the 'New Message' thread if new thread is started", async () => {
+    render(<Messages />);
+    const newThreadButton = screen.getByTestId("newThreadButton");
+    fireEvent.click(newThreadButton);
+    expect(await screen.findByText('New Message'));
+  });
+
   it("should add the new message to the active thread when a message is sent", () => {
     render(<Messages />);
     const sendButton = screen.getByText("Send");
@@ -57,5 +64,19 @@ describe("Messages", () => {
 
     const activeThread = screen.getByTestId("activeThread");
     expect(activeThread.textContent).toContain(messageFromSelectedThread);
+  });
+
+  it("should move the active thread to the top of the list when a message is sent", () => {
+    render(<Messages />);
+
+    const threadListItems = screen.getAllByTestId("threadListItem");
+    const selectedThreadListItem = threadListItems[1];
+    fireEvent.click(selectedThreadListItem);
+
+    const sendButton = screen.getByText("Send");
+    fireEvent.click(sendButton);
+
+    const updatedThreadListItems = screen.getAllByTestId("threadListItem");
+    expect(updatedThreadListItems[0].textContent).toContain(MOCK_MESSAGE.content);
   });
 });
