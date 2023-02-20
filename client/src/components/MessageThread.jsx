@@ -58,7 +58,7 @@ export default function MessageThread(props) {
           <button
             className="bg-indigo-600 text-white text-sm p-1 px-2.5 rounded-full hover:bg-indigo-700 disabled:bg-indigo-500"
             onClick={sendMessage}
-            disabled={!messageContent.trim()}
+            disabled={!props.patient || !messageContent.trim()}
             data-testid="sendButton"
           >
             <i className="fas fa-arrow-up"></i>
