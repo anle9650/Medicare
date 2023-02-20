@@ -66,5 +66,24 @@
                 "content": "Thanks doc!"
             }
         ]
+    },
+    {
+        "id": 3,
+        "patient": {
+            "name": "Megan Reynolds",
+            "photo": "megan.jpg"
+        },
+        "messages": [
+            {
+                "id": 11,
+                "type": "incoming",
+                "content": "Hi, could I get a refill for my prescription?"
+            },
+            {
+                "id": 12,
+                "type": "outgoing",
+                "content": "Sure, but it looks like you're due for a checkup. Let's get you scheduled."
+            }
+        ]
     }
 ]

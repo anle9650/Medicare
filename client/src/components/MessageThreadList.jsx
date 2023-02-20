@@ -1,9 +1,11 @@
-import { useState } from "react";
+import avatarPerson from "../assets/avatar-person.svg";
 
 export default function MessageThreadList(props) {
-  const [photosMap, setPhotosMap] = useState({});
 
   function getImageUrl(name) {
+    if (!name) {
+      return avatarPerson;
+    }
     return new URL(`../assets/${name}`, import.meta.url).href
   }
 
