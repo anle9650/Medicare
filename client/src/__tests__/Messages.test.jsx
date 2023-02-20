@@ -1,5 +1,5 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent, findByText } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Messages from "../components/Messages";
 
 const MOCK_MESSAGE = {

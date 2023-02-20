@@ -3,6 +3,7 @@ import threadData from "../data/threads.json";
 import MessageThreadList from "./MessageThreadList";
 import MessageThread from "./MessageThread";
 import avatarPerson from "../assets/avatar-person.svg";
+import PatientLookup from "./PatientLookup";
 
 export default function Messages() {
   const [threads, setThreads] = useState(getThreads());
@@ -91,11 +92,10 @@ export default function Messages() {
       </div>
       <div className="flex flex-col">
         <div className="flex bg-white p-4 rounded">
-          <label className="mr-2">To:</label>
           {activeThread?.patient ? (
             <span>{activeThread.patient.name}</span>
           ) : (
-            <input placeholder="Choose recepient" />
+            <PatientLookup placeholder="Choose recepient" />
           )}
           <button className="ml-auto">...</button>
         </div>
