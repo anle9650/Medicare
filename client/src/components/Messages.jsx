@@ -79,8 +79,8 @@ export default function Messages() {
             <i className="far fa-edit text-slate-500 text-lg"></i>
           </button>
         </div>
-        {showNewThread && newThread}
-        {threads.length && <hr />}
+        {showNewThread && (newThread)}
+        {showNewThread && threads.length && <hr />}
         <MessageThreadList
           threads={threads}
           activeThread={activeThread}
