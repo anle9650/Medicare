@@ -33,7 +33,7 @@ export default function MessageThread(props) {
         className="max-h-[78vh] overflow-y-auto"
         data-testid="thread"
       >
-        {props.messages.map((message, index) => (
+        {props.messages?.map((message, index) => (
           <Message
             key={message.id}
             {...message}
