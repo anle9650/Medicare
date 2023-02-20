@@ -59,17 +59,15 @@ export default function Messages() {
   }
 
   function addMessage(newMessage) {
-    setThreads((prevThreads) =>
-      prevThreads.map((thread) => {
-        if (thread.id === activeThread.id) {
-          return {
-            ...thread,
-            messages: [...thread.messages, newMessage],
-          };
-        }
-        return thread;
-      })
-    );
+    const updatedThread = {
+      ...activeThread,
+      messages: [...activeThread.messages, newMessage],
+    };
+
+    setThreads((prevThreads) => [
+      updatedThread,
+      ...prevThreads.filter((thread) => thread.id !== activeThreadId),
+    ]);
   }
 
   return (
