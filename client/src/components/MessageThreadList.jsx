@@ -1,6 +1,12 @@
-import photo from "../assets/damilola.png";
+import { useState } from "react";
 
 export default function MessageThreadList(props) {
+  const [photosMap, setPhotosMap] = useState({});
+
+  function getImageUrl(name) {
+    return new URL(`../assets/${name}`, import.meta.url).href
+  }
+
   function isActive(thread) {
     if (!props.activeThread) {
         return false;
@@ -27,8 +33,8 @@ export default function MessageThreadList(props) {
             <div className="flex items-center space-x-4">
               <div className="flex-shrink-0">
                 <img
-                  className="w-8 h-8 rounded-full"
-                  src={photo}
+                  className="w-8 h-8 rounded-full object-cover"
+                  src={getImageUrl(thread.patient.photo)}
                   alt={thread.patient.name}
                 />
               </div>
