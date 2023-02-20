@@ -91,16 +91,18 @@ export default function Messages() {
       </div>
       <div className="flex flex-col">
         <div className="flex bg-white p-4 rounded">
-          <button>{"<"}</button>
-          {activeThread?.patient && (
-            <span className="ml-3">{activeThread.patient.name}</span>
+          <label className="mr-2">To:</label>
+          {activeThread?.patient ? (
+            <span>{activeThread.patient.name}</span>
+          ) : (
+            <input placeholder="Choose recepient" />
           )}
           <button className="ml-auto">...</button>
         </div>
         <MessageThread
           {...activeThread}
           onSendMessage={addMessage}
-          className="grow"
+          className="grow mt-1"
         />
       </div>
     </section>

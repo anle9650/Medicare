@@ -26,7 +26,7 @@ export default function MessageThread(props) {
 
   return (
     <div
-      className={`flex flex-col bg-white p-3 rounded mt-1 ${props.className}`}
+      className={`flex flex-col bg-white p-3 rounded ${props.className}`}
     >
       <div
         id="thread"
