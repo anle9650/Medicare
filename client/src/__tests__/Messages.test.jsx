@@ -45,6 +45,34 @@ describe("Messages", () => {
     expect(await screen.findByText('New Message'));
   });
 
+  it("should hide the 'New Message' thread if the close button is clicked", async () => {
+    render(<Messages />);
+
+    const newThreadButton = screen.getByTestId("newThreadButton");
+    fireEvent.click(newThreadButton);
+
+    const closeNewThreadButton = screen.getByTestId("closeNewThreadButton");
+    fireEvent.click(closeNewThreadButton);
+
+    expect(screen.queryByText('New Message')).toBeNull();
+  });
+
+  it("should make the first thread active if the 'New Message' thread is closed", async () => {
+    render(<Messages />);
+
+    const newThreadButton = screen.getByTestId("newThreadButton");
+    fireEvent.click(newThreadButton);
+
+    const closeNewThreadButton = screen.getByTestId("closeNewThreadButton");
+    fireEvent.click(closeNewThreadButton);
+
+    const threadListItems = screen.getAllByTestId('threadListItem');
+    const messageFromFirstThread = threadListItems[0].textContent;
+    const activeThread = screen.getByTestId("activeThread");
+    
+    expect(activeThread.textContent).toContain(messageFromFirstThread);
+  });
+
   it("should add the new message to the active thread when a message is sent", () => {
     render(<Messages />);
     const sendButton = screen.getByText("Send");

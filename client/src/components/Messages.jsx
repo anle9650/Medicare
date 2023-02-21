@@ -11,45 +11,6 @@ export default function Messages() {
   const activeThread = threads.find((thread) => thread.id === activeThreadId);
   const [showNewThread, setShowNewThread] = useState(threads.length === 0);
 
-  const newThread = (
-    <>
-      <div
-        className={`flex items-center space-x-4 px-3 py-5 rounded cursor-pointer ${
-          activeThreadId ? "" : "bg-blue-400"
-        }`}
-        onClick={() => setActiveThreadId(null)}
-      >
-        <div className="flex-shrink-0">
-          <img
-            className="w-8 h-8 rounded-full object-cover"
-            src={avatarPerson}
-            alt="User avatar"
-          />
-        </div>
-        <div className="flex-1 min-w-0">
-          <p
-            className={`font-medium truncate dark:text-white ${
-              activeThreadId ? "text-gray-900" : "text-white"
-            }`}
-          >
-            New Message
-          </p>
-        </div>
-        {threads.length && (
-          <button
-            className={`dark:text-white ${
-              activeThreadId ? "text-gray-500" : "text-white"
-            }`}
-            onClick={() => setShowNewThread(false)}
-          >
-            x
-          </button>
-        )}
-      </div>
-      {threads.length && <hr />}
-    </>
-  );
-
   function getThreads() {
     return threadData;
   }
@@ -57,6 +18,12 @@ export default function Messages() {
   function startNewThread() {
     setShowNewThread(true);
     setActiveThreadId(null);
+  }
+
+  function endNewThread(event) {
+    event.stopPropagation();
+    setShowNewThread(false);
+    setActiveThreadId(threads[0]?.id ?? null);
   }
 
   function addMessage(newMessage) {
@@ -70,6 +37,44 @@ export default function Messages() {
       ...prevThreads.filter((thread) => thread.id !== activeThreadId),
     ]);
   }
+
+  const newThread = (
+    <>
+      <div
+        className={`flex items-center space-x-4 px-3 py-5 rounded cursor-pointer ${
+          activeThread ? "" : "bg-blue-400"
+        }`}
+        onClick={() => setActiveThreadId(null)}
+      >
+        <div className="flex-shrink-0">
+          <img
+            className="w-8 h-8 rounded-full object-cover"
+            src={avatarPerson}
+            alt="User avatar"
+          />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p
+            className={`font-medium truncate dark:text-white ${
+              activeThread ? "text-gray-900" : "text-white"
+            }`}
+          >
+            New Message
+          </p>
+        </div>
+        {threads.length && !activeThread && (
+          <button
+            className="dark:text-white text-white"
+            onClick={endNewThread}
+            data-testid="closeNewThreadButton"
+          >
+            x
+          </button>
+        )}
+      </div>
+      {threads.length && <hr />}
+    </>
+  );
 
   return (
     <section className="h-full grid grid-cols-2 gap-1">
