@@ -1,5 +1,5 @@
-import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, it, expect } from "vitest";
+import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
 import PatientLookup from "../components/PatientLookup";
 
 describe("PatientLookup", () => {
@@ -45,5 +45,17 @@ describe("PatientLookup", () => {
         fireEvent.blur(input);
 
         expect(dropdown.className).toContain('hidden');
+    });
+    
+    it("should update the dropdown to show closest matches when a patient name is typed in", () => {
+        const PATIENT_NAME = 'Henry';
+
+        render(<PatientLookup />);
+        const input = screen.getByTestId("input");
+        fireEvent.change(input, {target: { value: PATIENT_NAME }});
+
+        const dropdownOptions = screen.getAllByTestId("dropdownOption");
+        expect(dropdownOptions.length).toBe(1);
+        expect(dropdownOptions[0].textContent).toContain(PATIENT_NAME);
     });
 })

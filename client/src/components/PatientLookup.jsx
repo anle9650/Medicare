@@ -8,18 +8,22 @@ export default function PatientLookup(props) {
   const [showDropdown, setShowDropdown] = useState(false);
   const [keepOpen, setKeepOpen] = useState(false);
 
+  const filteredPatients = patients.filter((patient) =>
+    patient.name.toLowerCase().includes(value.trim().toLowerCase())
+  );
+
   function getPatients() {
     return patientData;
+  }
+
+  function handleChange(event) {
+    setValue(event.target.value);
   }
 
   function selectPatient(selected) {
     setValue(selected.name);
     setKeepOpen(false);
     setShowDropdown(false);
-  }
-
-  function handleChange(event) {
-    setValue(event.target.value);
   }
 
   function handleBlur() {
@@ -56,29 +60,31 @@ export default function PatientLookup(props) {
         onChange={handleChange}
         data-testid="input"
       />
-      <div
-        className={`absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 overflow-y-auto ${
-          showDropdown ? "" : "hidden"
-        }`}
-        onMouseOver={() => setKeepOpen(true)}
-        onMouseLeave={() => setKeepOpen(false)}
-        data-testid="dropdown"
-      >
-        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-          {patients.map((patient) => (
-            <li key={patient.id}>
-              <button
-                type="button"
-                className="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={() => selectPatient(patient)}
-              >
-                <PatientPhoto {...patient} />
-                <span className="ml-2">{patient.name}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {filteredPatients.length > 0 && (
+        <div
+          className={`absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-full dark:bg-gray-700 overflow-y-auto ${
+            showDropdown ? "" : "hidden"
+          }`}
+          onMouseOver={() => setKeepOpen(true)}
+          onMouseLeave={() => setKeepOpen(false)}
+          data-testid="dropdown"
+        >
+          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+            {filteredPatients.map((patient) => (
+              <li key={patient.id} data-testid="dropdownOption">
+                <button
+                  type="button"
+                  className="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  onClick={() => selectPatient(patient)}
+                >
+                  <PatientPhoto {...patient} />
+                  <span className="ml-2">{patient.name}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
