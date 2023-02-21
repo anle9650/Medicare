@@ -54,5 +54,20 @@
                 "date": "2/12/2023"
             }
         ]
+    },
+    {
+        "id": 5,
+        "name": "Damilola Oyin",
+        "photo": "damilola.png"
+    },
+    {
+        "id": 6,
+        "name": "Henry Archuleta",
+        "photo": "henry.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Megan Reynolds",
+        "photo": "megan.jpg"
     }
 ]

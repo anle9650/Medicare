@@ -2,6 +2,7 @@
     {
         "id": 1,
         "patient": {
+            "id": 5,
             "name": "Damilola Oyin",
             "photo": "damilola.png"
         },
@@ -36,6 +37,7 @@
     {
         "id": 2,
         "patient": {
+            "id": 6,
             "name": "Henry Archuleta",
             "photo": "henry.jpg"
         },
@@ -70,6 +72,7 @@
     {
         "id": 3,
         "patient": {
+            "id": 7,
             "name": "Megan Reynolds",
             "photo": "megan.jpg"
         },

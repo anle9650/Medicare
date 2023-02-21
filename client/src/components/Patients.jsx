@@ -97,20 +97,24 @@ export default function Patients() {
                 </th>
                 <td className="px-6 py-4">{patient.diagnosis}</td>
                 <td className="px-6 py-4">
-                  <span
-                    className={`bg-${getStatusColor(
-                      patient.status
-                    )}-100 text-${getStatusColor(
-                      patient.status
-                    )}-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-${getStatusColor(
-                      patient.status
-                    )}-400 border border-${getStatusColor(patient.status)}-400`}
-                  >
-                    {patient.status}
-                  </span>
+                  {patient.status && (
+                    <span
+                      className={`bg-${getStatusColor(
+                        patient.status
+                      )}-100 text-${getStatusColor(
+                        patient.status
+                      )}-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-${getStatusColor(
+                        patient.status
+                      )}-400 border border-${getStatusColor(
+                        patient.status
+                      )}-400`}
+                    >
+                      {patient.status}
+                    </span>
+                  )}
                 </td>
-                <td className="px-6 py-4">{patient.appointments[0].date}</td>
-                <td className="px-6 py-4">{patient.appointments[1].date}</td>
+                <td className="px-6 py-4">{patient.appointments?.[0]?.date}</td>
+                <td className="px-6 py-4">{patient.appointments?.[1]?.date}</td>
                 <td className="px-6 py-4">
                   <button className="px-4 py-2 text-gray-500">
                     <i className="fa-solid fa-ellipsis" />

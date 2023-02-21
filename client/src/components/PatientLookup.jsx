@@ -1,15 +1,24 @@
 import { useState } from "react";
+import patientData from "../data/patients.json";
 
 export default function PatientLookup(props) {
+  const [patients, setPatients] = useState(getPatients());
   const [value, setValue] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [keepOpen, setKeepOpen] = useState(false);
 
-  function updateSearchTerm() {}
+  function getPatients() {
+    return patientData;
+  }
 
-  function handleSelect() {
+  function selectPatient(selected) {
+    setValue(selected.name);
     setKeepOpen(false);
     setShowDropdown(false);
+  }
+
+  function handleChange(event) {
+    setValue(event.target.value);
   }
 
   function handleBlur() {
@@ -43,7 +52,7 @@ export default function PatientLookup(props) {
         placeholder={props.placeholder}
         onFocus={() => setShowDropdown(true)}
         onBlur={handleBlur}
-        onChange={updateSearchTerm}
+        onChange={handleChange}
         data-testid="input"
       />
       <div
@@ -55,15 +64,17 @@ export default function PatientLookup(props) {
         data-testid="dropdown"
       >
         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-          <li>
-            <button
-              type="button"
-              className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              onClick={handleSelect}
-            >
-              Mockups
-            </button>
-          </li>
+          {patients.map((patient) => (
+            <li key={patient.id}>
+              <button
+                type="button"
+                className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                onClick={() => selectPatient(patient)}
+              >
+                {patient.name}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
