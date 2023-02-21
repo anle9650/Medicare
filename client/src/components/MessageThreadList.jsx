@@ -1,13 +1,6 @@
-import avatarPerson from "../assets/avatar-person.svg";
+import PatientPhoto from "./PatientPhoto";
 
 export default function MessageThreadList(props) {
-  function getImageUrl(name) {
-    if (!name) {
-      return avatarPerson;
-    }
-    return new URL(`../assets/${name}`, import.meta.url).href;
-  }
-
   function isActive(thread) {
     if (!props.activeThread) {
       return false;
@@ -32,11 +25,7 @@ export default function MessageThreadList(props) {
         >
           <div className="flex items-center space-x-4">
             <div className="flex-shrink-0">
-              <img
-                className="w-8 h-8 rounded-full object-cover"
-                src={getImageUrl(thread.patient.photo)}
-                alt={thread.patient.name}
-              />
+              <PatientPhoto {...thread.patient} />
             </div>
             <div className="flex-1 min-w-0">
               <p

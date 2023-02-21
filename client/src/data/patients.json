@@ -39,7 +39,8 @@
             {
                 "date": "1/11/2023"
             }
-        ]
+        ],
+        "photo": "damilola.png"
     },
     {
         "id": 4,
@@ -54,11 +55,6 @@
                 "date": "2/12/2023"
             }
         ]
-    },
-    {
-        "id": 5,
-        "name": "Damilola Oyin",
-        "photo": "damilola.png"
     },
     {
         "id": 6,

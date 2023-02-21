@@ -1,5 +1,6 @@
 import { useState } from "react";
 import patientData from "../data/patients.json";
+import PatientPhoto from "./PatientPhoto";
 
 export default function PatientLookup(props) {
   const [patients, setPatients] = useState(getPatients());
@@ -68,10 +69,11 @@ export default function PatientLookup(props) {
             <li key={patient.id}>
               <button
                 type="button"
-                className="inline-flex w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 onClick={() => selectPatient(patient)}
               >
-                {patient.name}
+                <PatientPhoto {...patient} />
+                <span className="ml-2">{patient.name}</span>
               </button>
             </li>
           ))}
