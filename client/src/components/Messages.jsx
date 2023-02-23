@@ -4,6 +4,7 @@ import MessageThreadList from "./MessageThreadList";
 import MessageThread from "./MessageThread";
 import avatarPerson from "../assets/avatar-person.svg";
 import PatientLookup from "./PatientLookup";
+import PatientPhoto from "./PatientPhoto";
 
 export default function Messages() {
   const [threads, setThreads] = useState(getThreads());
@@ -26,6 +27,28 @@ export default function Messages() {
     setActiveThreadId(threads[0]?.id ?? null);
   }
 
+  function addThread(patient) {
+    const existingThread = threads.find(
+      (thread) => thread.patient.id === patient.id
+    );
+
+    if (existingThread) {
+      setActiveThreadId(existingThread.id);
+      setShowNewThread(false);
+      return;
+    }
+
+    const newThread = {
+      id: threads.length + 1,
+      patient,
+      messages: [],
+    };
+
+    setThreads((prevThreads) => [newThread, ...prevThreads]);
+    setActiveThreadId(newThread.id);
+    setShowNewThread(false);
+  }
+
   function addMessage(newMessage) {
     const updatedThread = {
       ...activeThread,
@@ -41,7 +64,7 @@ export default function Messages() {
   const newThread = (
     <>
       <div
-        className={`flex items-center space-x-4 px-3 py-5 rounded cursor-pointer ${
+        className={`flex items-center space-x-4 p-3 rounded cursor-pointer ${
           activeThread ? "" : "bg-blue-400"
         }`}
         onClick={() => setActiveThreadId(null)}
@@ -98,9 +121,15 @@ export default function Messages() {
       <div className="flex flex-col">
         <div className="flex bg-white p-4 rounded">
           {activeThread?.patient ? (
-            <span>{activeThread.patient.name}</span>
+            <div className="flex items-center">
+              <PatientPhoto {...activeThread.patient} />
+              <span className="ml-2">{activeThread.patient.name}</span>
+            </div>
           ) : (
-            <PatientLookup placeholder="Choose recepient" />
+            <PatientLookup
+              placeholder="Choose recepient"
+              onSelect={(selectedPatient) => addThread(selectedPatient)}
+            />
           )}
           <button className="ml-auto">...</button>
         </div>

@@ -16,7 +16,7 @@ export default function MessageThread(props) {
 
   function sendMessage() {
     props.onSendMessage({
-      id: props.messages[props.messages.length - 1].id + 1,
+      id: props.messages.length + 1,
       type: "outgoing",
       content: messageContent.trim(),
     });

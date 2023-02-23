@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { vi, describe, it, expect } from "vitest";
 import { render, screen, fireEvent, getByTestId } from "@testing-library/react";
 import PatientLookup from "../components/PatientLookup";
 
@@ -57,5 +57,14 @@ describe("PatientLookup", () => {
         const dropdownOptions = screen.getAllByTestId("dropdownOption");
         expect(dropdownOptions.length).toBe(1);
         expect(dropdownOptions[0].textContent).toContain(PATIENT_NAME);
+    });
+
+    it("should call props.onSelect when a patient is selected from the dropdown", () => {
+        const selectHandler = vi.fn();
+        render(<PatientLookup onSelect={selectHandler} />);
+
+        const dropdownOptions = screen.getAllByTestId("dropdownOption");
+        fireEvent.click(dropdownOptions[0]);
+        expect(selectHandler).toHaveBeenCalled();
     });
 })

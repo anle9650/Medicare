@@ -21,6 +21,7 @@ export default function PatientLookup(props) {
   }
 
   function selectPatient(selected) {
+    props.onSelect(selected);
     setValue(selected.name);
     setKeepOpen(false);
     setShowDropdown(false);
@@ -71,11 +72,12 @@ export default function PatientLookup(props) {
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {filteredPatients.map((patient) => (
-              <li key={patient.id} data-testid="dropdownOption">
+              <li key={patient.id}>
                 <button
                   type="button"
                   className="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                   onClick={() => selectPatient(patient)}
+                  data-testid="dropdownOption"
                 >
                   <PatientPhoto {...patient} />
                   <span className="ml-2">{patient.name}</span>

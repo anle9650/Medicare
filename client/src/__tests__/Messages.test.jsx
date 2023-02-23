@@ -2,6 +2,12 @@ import { vi, describe, it, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Messages from "../components/Messages";
 
+const MOCK_PATIENT = {
+  id: -1,
+  name: "Mock Patient"
+};
+
+
 const MOCK_MESSAGE = {
   id: -1,
   type: "outgoing",
@@ -10,7 +16,7 @@ const MOCK_MESSAGE = {
 
 vi.mock("../components/MessageThreadList", () => ({
   default: vi.fn((props) => (
-    <ul>
+    <ul data-testid="threadList">
       {props.threads.map((thread) => (
         <li
           key={thread.id}

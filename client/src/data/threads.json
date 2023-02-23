@@ -43,27 +43,27 @@
         },
         "messages": [
             {
-                "id": 6,
+                "id": 1,
                 "type": "incoming",
                 "content": "Hey doc, do you have a second to discuss my test results?"
             },
             {
-                "id": 7,
+                "id": 2,
                 "type": "outgoing",
                 "content": "Sure Henry. Did you have any specific questions?"
             },
             {
-                "id": 8,
+                "id": 3,
                 "type": "incoming",
                 "content": "Just wondering what my elevanted HgA1c means, and how I can treat it?"
             },
             {
-                "id": 9,
+                "id": 4,
                 "type": "outgoing",
                 "content": "Your HgA1c represents an elevation of insulin hormone. It means that you are in the pre-diabetic stage. You should work on decreasing your sugar/carb intake, overall caloric intake, and aim for 20 minutes of moderate cardiovascular exercise per day."
             },
             {
-                "id": 10,
+                "id": 5,
                 "type": "incoming",
                 "content": "Thanks doc!"
             }
@@ -78,12 +78,12 @@
         },
         "messages": [
             {
-                "id": 11,
+                "id": 1,
                 "type": "incoming",
                 "content": "Hi, could I get a refill for my prescription?"
             },
             {
-                "id": 12,
+                "id": 2,
                 "type": "outgoing",
                 "content": "Sure, but it looks like you're due for a checkup. Let's get you scheduled."
             }
