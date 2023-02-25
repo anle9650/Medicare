@@ -33,7 +33,10 @@ export default function Appointment(props) {
           <i className="fa-regular fa-trash text-sm text-red-500"></i>
         </button>
         {props.patient && (
-          <button className="border rounded-lg px-2 mr-3 hover:bg-gray-50" title="View patient">
+          <button
+            className="border rounded-lg px-2 mr-3 hover:bg-gray-50"
+            title="View patient"
+          >
             <i className="fa-regular fa-user text-sm text-sky-500"></i>
           </button>
         )}
@@ -57,13 +60,13 @@ export default function Appointment(props) {
 
   function getStatusColor() {
     if (hasEnded) {
-      return "slate-300";
+      return "bg-slate-300";
     }
     if (inProgress) {
-      return "green-600";
+      return "bg-green-600";
     }
     if (notStarted) {
-      return "blue-500";
+      return "bg-blue-500";
     }
   }
 
@@ -78,7 +81,7 @@ export default function Appointment(props) {
       >
         <div className="col-span-4 flex items-center">
           <div
-            className={`bg-${getStatusColor()} rounded-full p-1.5 mr-2`}
+            className={`${getStatusColor()} rounded-full p-1.5 mr-2`}
             data-testid="statusIndicator"
           ></div>
           <strong>{props.scheduledStart}</strong>

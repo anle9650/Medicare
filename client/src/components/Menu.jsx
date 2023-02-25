@@ -5,7 +5,7 @@ export default function Menu(props) {
 
   function getClass(value) {
     if (value === selected) {
-      return "text-indigo-600 font-semibold";
+      return "text-indigo-600 font-bold";
     }
     return "text-gray-500";
   }

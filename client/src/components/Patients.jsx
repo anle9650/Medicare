@@ -1,6 +1,13 @@
 import { useState } from "react";
 import patientData from "../data/patients.json";
 
+const STATUS_TO_COLOR = {
+  Recovered: "bg-green-100 text-green-800 dark:text-green-400 border-green-400",
+  "On Treatment": "bg-red-100 text-red-800 dark:text-red-400 border-red-400",
+  "Awaiting Surgery":
+    "bg-blue-100 text-blue-800 dark:text-blue-400 border-blue-400",
+};
+
 export default function Patients() {
   const [patients, setPatients] = useState(getPatients());
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,16 +18,6 @@ export default function Patients() {
 
   function getPatients() {
     return patientData;
-  }
-
-  function getStatusColor(status) {
-    const STATUS_TO_COLOR = {
-      Recovered: "green",
-      "On Treatment": "red",
-      "Awaiting Surgery": "blue",
-    };
-
-    return STATUS_TO_COLOR[status];
   }
 
   function updateSearchTerm(event) {
@@ -99,15 +96,9 @@ export default function Patients() {
                 <td className="px-6 py-4">
                   {patient.status && (
                     <span
-                      className={`bg-${getStatusColor(
-                        patient.status
-                      )}-100 text-${getStatusColor(
-                        patient.status
-                      )}-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-${getStatusColor(
-                        patient.status
-                      )}-400 border border-${getStatusColor(
-                        patient.status
-                      )}-400`}
+                      className={`${
+                        STATUS_TO_COLOR[patient.status]
+                      }text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700`}
                     >
                       {patient.status}
                     </span>
