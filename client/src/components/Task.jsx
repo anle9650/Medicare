@@ -1,5 +1,5 @@
 import TaskDropdown from "./TaskDropdown";
-import { updateTaskRequest } from "../services/TaskService";
+import { updateTaskRequest, deleteTaskRequest } from "../services/TaskService";
 
 export default function Task(props) {
   async function handleChange(event) {
@@ -30,6 +30,22 @@ export default function Task(props) {
     return !!updatedTask;
   }
 
+  async function deleteTask() {
+    const response = await deleteTaskRequest(props._id);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const deletedTask = await response.json();
+
+    if (deletedTask) {
+      props.onDelete();
+    }
+  }
+
   return (
     <div className={`bg-gray-100 rounded p-4 ${props.className}`}>
       <label className="grid grid-cols-12 items-center gap-x-3 cursor-pointer">
@@ -54,7 +70,7 @@ export default function Task(props) {
             day: "numeric",
           })}
         </span>
-        <TaskDropdown onDelete={props.onDelete} />
+        <TaskDropdown onDelete={deleteTask} />
       </label>
     </div>
   );

@@ -20,7 +20,7 @@ export async function updateTaskRequest(task) {
   const fields = {
     content: task.content,
     completed: task.completed,
-    deadline: task.deadline
+    deadline: task.deadline,
   };
 
   const response = await fetch(`${PATH}/${task._id}`, {
@@ -31,5 +31,12 @@ export async function updateTaskRequest(task) {
     },
   });
 
+  return response;
+}
+
+export async function deleteTaskRequest(taskId) {
+  const response = await fetch(`${PATH}/${taskId}`, {
+    method: "DELETE",
+  });
   return response;
 }
