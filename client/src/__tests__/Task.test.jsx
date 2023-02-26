@@ -1,6 +1,13 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import Task from "../components/Task";
+
+vi.mock("../services/TaskService", () => ({
+  updateTaskRequest: vi.fn((task) => ({
+    json: () => new Promise((resolve) => resolve(task)),
+    ok: true,
+  })),
+}));
 
 vi.mock("../components/TaskDropdown", () => ({
   default: (props) => (
@@ -39,7 +46,7 @@ describe("Task", () => {
     expect(completedCheckbox.checked).toBeTruthy();
   });
 
-  it("should call props.onUpdate with the updated task when checked/unchecked", () => {
+  it("should call props.onUpdate with the updated task when checked/unchecked", async () => {
     const MOCK_TASK = {
       content: "some task",
       deadline: "January 1, 2023",
@@ -51,7 +58,7 @@ describe("Task", () => {
     render(<Task {...MOCK_TASK} onUpdate={updateHandler} />);
 
     const completedCheckbox = screen.getByTestId("completedCheckbox");
-    completedCheckbox.click();
+    await act(() => completedCheckbox.click());
 
     expect(updateHandler).toHaveBeenCalledWith(
       expect.objectContaining({ ...MOCK_TASK, completed: !MOCK_TASK.completed })

@@ -31,7 +31,7 @@ export default function Tasks() {
   function updateTask(updatedTask) {
     setTasks((oldTasks) =>
       oldTasks.map((oldTask) =>
-        oldTask.id === updatedTask.id ? updatedTask : oldTask
+        oldTask._id === updatedTask._id ? updatedTask : oldTask
       )
     );
   }

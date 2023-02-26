@@ -21,8 +21,7 @@ taskRoutes.route("/tasks").post(async function (req, res) {
 
 taskRoutes.route("/tasks/:id").put(async function (req, res) {
   const { id } = req.params;
-  await Task.updateOne({ id }, req.body);
-  const updatedTask = await Task.findById(id);
+  const updatedTask = await Task.findByIdAndUpdate(id, req.body);
   return res.status(200).json(updatedTask);
 });
 
