@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TaskEditModal from "./TaskEditModal";
 import Task from "./Task";
 import taskData from "../data/tasks.json";
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState(getTasks());
+  const [tasks, setTasks] = useState(taskData);
   const [editingTask, setEditingTask] = useState(false);
 
-  function getTasks() {
-    return taskData;
-  }
+  useEffect(() => {
+   async function getTasks() {
+     const response = await fetch(`http://localhost:8000/api/tasks`);
+ 
+     if (!response.ok) {
+       const message = `An error occurred: ${response.statusText}`;
+       window.alert(message);
+       return;
+     }
+ 
+     const tasks = await response.json();
+     console.log(tasks);
+    //  setTasks(tasks);
+   }
+ 
+   getTasks();
+ 
+   return;
+ }, []);
 
   function addTask(task) {
     setTasks((prevTasks) => {
