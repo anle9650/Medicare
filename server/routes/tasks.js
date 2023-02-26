@@ -2,24 +2,24 @@ const express = require("express");
 const taskRoutes = express.Router();
 const { Task } = require("../models");
 
-taskRoutes.route("/tasks").get(async function (req, res) {
+taskRoutes.route("/tasks").get(async (req, res) => {
   const allTasks = await Task.find();
   return res.status(200).json(allTasks);
 });
 
-taskRoutes.route("/tasks/:id").get(async function (req, res) {
+taskRoutes.route("/tasks/:id").get(async (req, res) => {
   const { id } = req.params;
   const task = await Task.findById(id);
   return res.status(200).json(task);
 });
 
-taskRoutes.route("/tasks").post(async function (req, res) {
+taskRoutes.route("/tasks").post(async (req, res) => {
   const newTask = new Task({ ...req.body });
   const insertedTask = await newTask.save();
   return res.status(201).json(insertedTask);
 });
 
-taskRoutes.route("/tasks/:id").put(async function (req, res) {
+taskRoutes.route("/tasks/:id").put(async (req, res) => {
   const { id } = req.params;
   const updatedTask = await Task.findByIdAndUpdate(id, req.body);
   return res.status(200).json(updatedTask);
