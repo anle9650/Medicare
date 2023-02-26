@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import TaskEditModal from "./TaskEditModal";
 import Task from "./Task";
-import taskData from "../data/tasks.json";
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState(taskData);
+  const [tasks, setTasks] = useState();
   const [editingTask, setEditingTask] = useState(false);
 
   useEffect(() => {
@@ -18,13 +17,10 @@ export default function Tasks() {
      }
  
      const tasks = await response.json();
-     console.log(tasks);
-    //  setTasks(tasks);
+     setTasks(tasks);
    }
  
    getTasks();
- 
-   return;
  }, []);
 
   function addTask(task) {
@@ -59,9 +55,9 @@ export default function Tasks() {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        {tasks.map((task, index) => (
+        {tasks?.map((task, index) => (
           <Task
-            key={task.id}
+            key={task._id}
             {...task}
             className={index === tasks.length - 1 ? "" : "mb-4"}
             onUpdate={(updatedTask) => updateTask(updatedTask)}

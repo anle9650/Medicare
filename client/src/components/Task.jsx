@@ -1,13 +1,12 @@
-import TaskDropdown from "./TaskDropdown"
+import TaskDropdown from "./TaskDropdown";
 
 export default function Task(props) {
-
   function updateTask(event) {
     const { name, type, value, checked } = event.target;
 
-    const updatedTask = { 
-        ...props,
-        [name]: type === 'checkbox' ? checked : value 
+    const updatedTask = {
+      ...props,
+      [name]: type === "checkbox" ? checked : value,
     };
 
     props.onUpdate(updatedTask);
@@ -30,7 +29,13 @@ export default function Task(props) {
           </span>
           <p>{props.content}</p>
         </div>
-        <span className="italic col-span-3">{props.deadline}</span>
+        <span className="italic col-span-3">
+          {new Date(props.deadline).toLocaleDateString("en-us", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
         <TaskDropdown onDelete={props.onDelete} />
       </label>
     </div>
