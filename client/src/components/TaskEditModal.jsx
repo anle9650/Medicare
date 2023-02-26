@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { addTaskRequest } from "../services/TaskService";
 import BaseDatepicker from "./BaseDatepicker";
 import BaseModal from "./BaseModal";
 
@@ -14,16 +15,35 @@ export default function TaskEditModal(props) {
     setTask((prevTask) => ({ ...prevTask, deadline }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (!task.content || !task.deadline) {
       return;
     }
 
-    props.onSubmit({ ...task });
+    const newTask = await addTask();
+
+    if (!newTask) {
+      return;
+    }
+
+    props.onSubmit({ ...newTask });
     props.onClose();
     setTask({ content: "", deadline: null });
+  }
+
+  async function addTask() {
+    const response = await addTaskRequest(task);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const newTask = await response.json();
+    return newTask;
   }
 
   return (

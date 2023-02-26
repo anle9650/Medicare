@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { fetchTasks } from "../services/TaskService";
 import TaskEditModal from "./TaskEditModal";
 import Task from "./Task";
 
@@ -8,7 +9,7 @@ export default function Tasks() {
 
   useEffect(() => {
    async function getTasks() {
-     const response = await fetch(`http://localhost:8000/api/tasks`);
+     const response = await fetchTasks();
  
      if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
@@ -24,11 +25,7 @@ export default function Tasks() {
  }, []);
 
   function addTask(task) {
-    setTasks((prevTasks) => {
-        const id = prevTasks.length + 1;
-        const newTask = { ...task, id };
-        return [newTask, ...prevTasks];
-    });
+    setTasks((prevTasks) => [task, ...prevTasks]);
   }
 
   function updateTask(updatedTask) {
