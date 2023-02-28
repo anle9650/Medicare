@@ -97,7 +97,7 @@ export default function Patients() {
             {filteredPatients.map((patient) => (
               <tr
                 className="bg-white dark:bg-gray-800 dark:border-gray-700"
-                key={patient.id}
+                key={patient._id}
                 data-testid="tableRow"
               >
                 <th

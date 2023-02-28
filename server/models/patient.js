@@ -14,6 +14,10 @@ const PatientSchema = new mongoose.Schema({
   photo: {
     type: String,
   },
+  appointments: {
+    type: Array,
+    default: [],
+  },
 });
 
 const Patient = mongoose.model("Patient", PatientSchema);
