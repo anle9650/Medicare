@@ -5,8 +5,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const taskRoutes = require('./routes/tasks')
-app.use('/api', taskRoutes)
+const apiRoutes = require('./routes')
+app.use('/api', apiRoutes)
 
 require("dotenv").config({ path: "./config.env" });
 const port = process.env.PORT || 8000;
