@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { fetchPatients } from "../services/PatientService";
-import patientData from "../data/patients.json";
 import { useEffect } from "react";
 
 const STATUS_TO_COLOR = {
@@ -11,7 +10,7 @@ const STATUS_TO_COLOR = {
 };
 
 export default function Patients() {
-  const [patients, setPatients] = useState(getPatients());
+  const [patients, setPatients] = useState();
   const [searchTerm, setSearchTerm] = useState("");
 
   const filteredPatients = patients?.filter((patient) =>
@@ -29,16 +28,11 @@ export default function Patients() {
       }
 
       const patients = await response.json();
-      // setPatients(patients);
-      console.log(patients);
+      setPatients(patients);
     }
 
     getPatients();
   }, []);
-
-  function getPatients() {
-    return patientData;
-  }
 
   function updateSearchTerm(event) {
     setSearchTerm(event.target.value);
