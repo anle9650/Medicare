@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { fetchPatients } from "../services/PatientService";
 import patientData from "../data/patients.json";
+import { useEffect } from "react";
 
 const STATUS_TO_COLOR = {
   Recovered: "bg-green-100 text-green-800 dark:text-green-400 border-green-400",
@@ -12,9 +14,27 @@ export default function Patients() {
   const [patients, setPatients] = useState(getPatients());
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredPatients = patients.filter((patient) =>
+  const filteredPatients = patients?.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
-  );
+  ) ?? [];
+
+  useEffect(() => {
+    async function getPatients() {
+      const response = await fetchPatients();
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const patients = await response.json();
+      // setPatients(patients);
+      console.log(patients);
+    }
+
+    getPatients();
+  }, []);
 
   function getPatients() {
     return patientData;
