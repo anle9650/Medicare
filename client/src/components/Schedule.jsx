@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchAppointments } from "../services/AppointmentService";
 import AppointmentGroup from "./AppointmentGroup";
 import AppointmentEditModal from "./AppointmentEditModal";
 import BaseModal from "./BaseModal";
@@ -22,6 +23,24 @@ export default function Schedule() {
   ];
 
   const groupedAppointments = groupAppointmentsByHour();
+
+  useEffect(() => {
+    async function getAppointments() {
+      const response = await fetchAppointments();
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const appointments = await response.json();
+      // setAppointments(appointments);
+      console.log(appointments);
+    }
+
+    getAppointments();
+  }, [])
 
   function getAppointments() {
     return appointmentData;
