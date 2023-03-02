@@ -27,7 +27,7 @@ export default function Task(props) {
     }
 
     const updatedTask = await response.json();
-    return !!updatedTask;
+    return updatedTask;
   }
 
   async function deleteTask() {

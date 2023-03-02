@@ -19,7 +19,7 @@ export async function addAppointmentRequest(appointment) {
 export async function updateAppointmentRequest(appointment) {
   const fields = {
     name: appointment.name,
-    patient_id: appointment.patient_id,
+    patient_id: appointment.patient._id,
     purpose: appointment.purpose,
     scheduledStart: appointment.scheduledStart,
     scheduledEnd: appointment.scheduledEnd,

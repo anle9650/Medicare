@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { fetchAppointments } from "../services/AppointmentService";
+import {
+  fetchAppointments,
+  updateAppointmentRequest,
+} from "../services/AppointmentService";
 import AppointmentGroup from "./AppointmentGroup";
 import AppointmentEditModal from "./AppointmentEditModal";
 import BaseModal from "./BaseModal";
@@ -8,6 +11,13 @@ import ButtonSecondary from "./ButtonSecondary";
 
 function getHour(time) {
   return parseInt(time.split(":")[0]);
+}
+
+function getCurrentTime() {
+  const today = new Date();
+  const time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  return time;
 }
 
 export default function Schedule() {
@@ -67,48 +77,49 @@ export default function Schedule() {
     );
   }
 
-  function startAppointment(toStart) {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) => {
-        if (appointment._id === toStart._id) {
-          const today = new Date();
-          const time =
-            today.getHours() +
-            ":" +
-            today.getMinutes() +
-            ":" +
-            today.getSeconds();
+  async function startAppointment(toStart) {
+    const currentTime = getCurrentTime();
+    const updatedAppointment = { ...toStart, start: currentTime };
+    const success = await updateAppointment(updatedAppointment);
 
-          return {
-            ...appointment,
-            start: time,
-          };
-        }
-        return appointment;
-      })
+    if (!success) {
+      return;
+    }
+
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment._id === toStart._id ? updatedAppointment : appointment
+      )
     );
   }
 
-  function endAppointment(toEnd) {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) => {
-        if (appointment._id === toEnd._id) {
-          const today = new Date();
-          const time =
-            today.getHours() +
-            ":" +
-            today.getMinutes() +
-            ":" +
-            today.getSeconds();
+  async function endAppointment(toEnd) {
+    const currentTime = getCurrentTime();
+    const updatedAppointment = { ...toEnd, end: currentTime };
+    const success = await updateAppointment(updatedAppointment);
 
-          return {
-            ...appointment,
-            end: time,
-          };
-        }
-        return appointment;
-      })
+    if (!success) {
+      return;
+    }
+
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment._id === toEnd._id ? updatedAppointment : appointment
+      )
     );
+  }
+
+  async function updateAppointment(appointment) {
+    const response = await updateAppointmentRequest(appointment);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const updatedAppointment = await response.json();
+    return updatedAppointment;
   }
 
   function confirmDeleteAppointment(toDelete) {
