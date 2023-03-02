@@ -39,11 +39,7 @@ export default function Task(props) {
       return;
     }
 
-    const deletedTask = await response.json();
-
-    if (deletedTask) {
-      props.onDelete();
-    }
+    props.onDelete();
   }
 
   return (

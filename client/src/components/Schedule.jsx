@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import {
   fetchAppointments,
   updateAppointmentRequest,
+  deleteAppointmentRequest,
 } from "../services/AppointmentService";
 import AppointmentGroup from "./AppointmentGroup";
 import AppointmentEditModal from "./AppointmentEditModal";
@@ -126,7 +127,15 @@ export default function Schedule() {
     setAppointmentToDelete(toDelete);
   }
 
-  function deleteAppointment() {
+  async function deleteAppointment() {
+    const response = await deleteAppointmentRequest(appointmentToDelete._id);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
     setAppointments((prevAppointments) =>
       prevAppointments.filter(
         (appointment) => appointment !== appointmentToDelete

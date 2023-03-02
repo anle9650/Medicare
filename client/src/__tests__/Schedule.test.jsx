@@ -1,11 +1,21 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import Schedule from "../components/Schedule";
 import appointmentData from "../data/appointments.json";
 
 vi.mock("../services/AppointmentService", () => ({
   fetchAppointments: vi.fn(() => ({
     json: () => new Promise((resolve) => resolve(appointmentData)),
+    ok: true,
+  })),
+  deleteAppointmentRequest: vi.fn((toDelete) => ({
+    json: () => new Promise((resolve) => resolve(toDelete)),
     ok: true,
   })),
 }));
@@ -44,7 +54,9 @@ describe("Schedule", () => {
     fireEvent.click(deleteButton);
     fireEvent.click(screen.getByText("Yes, I'm sure"));
 
-    expect(screen.queryByText(appointmentToDelete.textContent)).toBeNull();
+    await waitForElementToBeRemoved(() =>
+      screen.queryByText(appointmentToDelete.textContent)
+    );
   });
 });
 
@@ -53,7 +65,7 @@ function mockAppointmentGroup() {
     default: (props) => (
       <ul>
         {props.appointments.map((appointment) => (
-          <li key={appointment.id}>
+          <li key={appointment._id}>
             <span data-testid="appointment">{appointment.name}</span>
             <button onClick={() => props.onDeleteAppointment(appointment)}>
               Delete Appointment
