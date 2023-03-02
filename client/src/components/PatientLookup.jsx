@@ -72,7 +72,7 @@ export default function PatientLookup(props) {
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {filteredPatients.map((patient) => (
-              <li key={patient.id}>
+              <li key={patient._id}>
                 <button
                   type="button"
                   className="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

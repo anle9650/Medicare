@@ -5,7 +5,7 @@ import AppointmentGroup from "../components/AppointmentGroup";
 const MOCK_TIME = "8:00 AM";
 const MOCK_APPOINTMENTS = [
   {
-    id: 1,
+    _id: 1,
     name: "Rice Kotlin",
     patient: {
       name: "Rice Kotlin",
@@ -17,7 +17,7 @@ const MOCK_APPOINTMENTS = [
     end: "8:20 AM",
   },
   {
-    id: 2,
+    _id: 2,
     name: "Maya Adamu",
     patient: {
       name: "Rice Kotlin",

@@ -5,22 +5,22 @@ import AppointmentEditModal from "./AppointmentEditModal";
 import BaseModal from "./BaseModal";
 import ButtonPrimary from "./ButtonPrimary";
 import ButtonSecondary from "./ButtonSecondary";
-import appointmentData from "../data/appointments.json";
 
 function getHour(time) {
   return parseInt(time.split(":")[0]);
 }
 
 export default function Schedule() {
-  const [appointments, setAppointments] = useState(getAppointments());
+  const [appointments, setAppointments] = useState();
   const [editingAppointment, setEditingAppointment] = useState(false);
   const [appointmentToDelete, setAppointmentToDelete] = useState(null);
 
-  const hourStartTimes = [
-    ...new Set(
-      appointments.map((appointment) => getHour(appointment.scheduledStart))
-    ),
-  ];
+  const hourStartTimes =
+    [
+      ...new Set(
+        appointments?.map((appointment) => getHour(appointment.scheduledStart))
+      ),
+    ] ?? [];
 
   const groupedAppointments = groupAppointmentsByHour();
 
@@ -35,16 +35,11 @@ export default function Schedule() {
       }
 
       const appointments = await response.json();
-      // setAppointments(appointments);
-      console.log(appointments);
+      setAppointments(appointments);
     }
 
     getAppointments();
-  }, [])
-
-  function getAppointments() {
-    return appointmentData;
-  }
+  }, []);
 
   function groupAppointmentsByHour() {
     const groupedAppointments = {};
@@ -67,7 +62,7 @@ export default function Schedule() {
       prevAppointments.map((appointment) => ({
         ...appointment,
         isSelected:
-          appointment.id === selected.id ? !appointment.isSelected : false,
+          appointment._id === selected._id ? !appointment.isSelected : false,
       }))
     );
   }
@@ -75,7 +70,7 @@ export default function Schedule() {
   function startAppointment(toStart) {
     setAppointments((prevAppointments) =>
       prevAppointments.map((appointment) => {
-        if (appointment.id === toStart.id) {
+        if (appointment._id === toStart._id) {
           const today = new Date();
           const time =
             today.getHours() +
@@ -97,7 +92,7 @@ export default function Schedule() {
   function endAppointment(toEnd) {
     setAppointments((prevAppointments) =>
       prevAppointments.map((appointment) => {
-        if (appointment.id === toEnd.id) {
+        if (appointment._id === toEnd._id) {
           const today = new Date();
           const time =
             today.getHours() +
@@ -122,7 +117,9 @@ export default function Schedule() {
 
   function deleteAppointment() {
     setAppointments((prevAppointments) =>
-      prevAppointments.filter((appointment) => appointment !== appointmentToDelete)
+      prevAppointments.filter(
+        (appointment) => appointment !== appointmentToDelete
+      )
     );
     setAppointmentToDelete(null);
   }
@@ -161,7 +158,7 @@ export default function Schedule() {
         onSubmit={(appointment) => addAppointment(appointment)}
         onClose={() => setEditingAppointment(false)}
       />
-      
+
       <BaseModal
         open={!!appointmentToDelete}
         onClose={() => setAppointmentToDelete(null)}
@@ -170,7 +167,9 @@ export default function Schedule() {
           Are you sure you want to delete this appointment?
         </BaseModal.Body>
         <BaseModal.Footer>
-          <ButtonPrimary onClick={deleteAppointment}>Yes, I'm sure</ButtonPrimary>
+          <ButtonPrimary onClick={deleteAppointment}>
+            Yes, I'm sure
+          </ButtonPrimary>
           <ButtonSecondary
             className="mr-2"
             onClick={() => setAppointmentToDelete(null)}

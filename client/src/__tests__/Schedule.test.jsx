@@ -1,6 +1,14 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Schedule from "../components/Schedule";
+import appointmentData from "../data/appointments.json";
+
+vi.mock("../services/AppointmentService", () => ({
+  fetchAppointments: vi.fn(() => ({
+    json: () => new Promise((resolve) => resolve(appointmentData)),
+    ok: true,
+  })),
+}));
 
 beforeEach(() => {
   // IntersectionObserver isn't available in test environment
@@ -14,9 +22,10 @@ beforeEach(() => {
 });
 
 describe("Schedule", () => {
-  it("should ask the user for confirmation before deleting an appointment", () => {
+  it("should ask the user for confirmation before deleting an appointment", async () => {
     mockAppointmentGroup();
     render(<Schedule />);
+    await act(() => Promise.resolve());
 
     const appointmentToDelete = screen.getAllByTestId("appointment")[0];
     const deleteButton = screen.getAllByText("Delete Appointment")[0];
@@ -25,9 +34,10 @@ describe("Schedule", () => {
     expect(screen.queryByText(appointmentToDelete.textContent)).not.toBeNull();
   });
 
-  it("should delete the appointment after the user confirms", () => {
+  it("should delete the appointment after the user confirms", async () => {
     mockAppointmentGroup();
     render(<Schedule />);
+    await act(() => Promise.resolve());
 
     const appointmentToDelete = screen.getAllByTestId("appointment")[0];
     const deleteButton = screen.getAllByText("Delete Appointment")[0];

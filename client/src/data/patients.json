@@ -1,6 +1,6 @@
 [
     {
-        "id": 1,
+        "_id": 1,
         "name": "Mary Joseph",
         "diagnosis": "Malaria",
         "status": "Recovered",
@@ -14,7 +14,7 @@
         ]
     },
     {
-        "id": 2,
+        "_id": 2,
         "name": "Amalia Jones",
         "diagnosis": "Stroke",
         "status": "Awaiting Surgery",
@@ -28,7 +28,7 @@
         ]
     },
     {
-        "id": 3,
+        "_id": 3,
         "name": "Damilola Oyin",
         "diagnosis": "Liver Failure",
         "status": "On Treatment",
@@ -43,7 +43,7 @@
         "photo": "damilola.png"
     },
     {
-        "id": 4,
+        "_id": 4,
         "name": "Selim Jubril",
         "diagnosis": "Typhoid",
         "status": "Awaiting Surgery",
@@ -57,12 +57,12 @@
         ]
     },
     {
-        "id": 6,
+        "_id": 6,
         "name": "Henry Archuleta",
         "photo": "henry.jpg"
     },
     {
-        "id": 7,
+        "_id": 7,
         "name": "Megan Reynolds",
         "photo": "megan.jpg"
     }
