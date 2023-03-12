@@ -1,4 +1,4 @@
-const PATH = "http://localhost:8000/api/tasks";
+const PATH = import.meta.env.VITE_API_ENDPOINT + "tasks";
 
 export async function fetchTasks() {
   const response = await fetch(PATH);

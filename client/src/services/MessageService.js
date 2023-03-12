@@ -1,4 +1,4 @@
-const PATH = "http://localhost:8000/api/messages";
+const PATH = import.meta.env.VITE_API_ENDPOINT + "messages";
 
 export async function fetchThreads() {
   const response = await fetch(PATH + '/threads');

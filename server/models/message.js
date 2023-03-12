@@ -1,9 +1,8 @@
-const { ObjectId } = require("mongodb");
 const mongoose = require("mongoose");
 
 const MessageSchema = new mongoose.Schema({
   patientId: {
-    type: ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Patient',
     required: true,
   },

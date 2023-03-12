@@ -1,4 +1,4 @@
-const PATH = "http://localhost:8000/api/patients";
+const PATH = import.meta.env.VITE_API_ENDPOINT + "patients";
 
 export async function fetchPatients() {
   const response = await fetch(PATH);
