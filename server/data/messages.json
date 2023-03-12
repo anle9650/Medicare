@@ -1,0 +1,112 @@
+[
+    {
+        "_id": {
+            "$oid": "640cd2a55c070c164bca4d2b"
+        },
+        "type": "outgoing",
+        "content": "Hello, how are you doing?",
+        "patientId": {
+            "$oid": "63fd7ce17d1bf53e7cd3ae90"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "640cd3315c070c164bca4d2c"
+        },
+        "type": "incoming",
+        "content": "Great, when can we have the meeting?",
+        "patientId": {
+            "$oid": "63fd7ce17d1bf53e7cd3ae90"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "640cd3805c070c164bca4d2e"
+        },
+        "type": "incoming",
+        "content": "Yeah, let's have a video call.",
+        "patientId": {
+            "$oid": "63fd7ce17d1bf53e7cd3ae90"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "640cd3b25c070c164bca4d2f"
+        },
+        "patientId": {
+            "$oid": "63fd7ce17d1bf53e7cd3ae90"
+        },
+        "type": "outgoing",
+        "content": "That would be great."
+    },
+    {
+        "_id": {
+            "$oid": "640cd3c55c070c164bca4d30"
+        },
+        "type": "incoming",
+        "content": "Hey doc, do you have a second to discuss my test results?",
+        "patientId": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "640cd3ff5c070c164bca4d31"
+        },
+        "patientId": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        },
+        "type": "outgoing",
+        "content": "Sure Henry. Did you have any specific questions?"
+    },
+    {
+        "_id": {
+            "$oid": "640cd4165c070c164bca4d32"
+        },
+        "patientId": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        },
+        "type": "incoming",
+        "content": "Just wondering what my elevanted HgA1c means, and how I can treat it?"
+    },
+    {
+        "_id": {
+            "$oid": "640cd44c5c070c164bca4d34"
+        },
+        "patientId": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        },
+        "type": "outgoing",
+        "content": "Your HgA1c represents an elevation of insulin hormone. It means that you are in the pre-diabetic stage. You should work on decreasing your sugar/carb intake, overall caloric intake, and aim for 20 minutes of moderate cardiovascular exercise per day."
+    },
+    {
+        "_id": {
+            "$oid": "640cd46a5c070c164bca4d35"
+        },
+        "patientId": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        },
+        "type": "incoming",
+        "content": "Thanks doc!"
+    },
+    {
+        "_id": {
+            "$oid": "640ce9845c070c164bca4d39"
+        },
+        "patientId": {
+            "$oid": "63fd7d137d1bf53e7cd3ae93"
+        },
+        "type": "incoming",
+        "content": "Hi, could I get a refill for my prescription?"
+    },
+    {
+        "_id": {
+            "$oid": "640ce9af5c070c164bca4d3a"
+        },
+        "patientId": {
+            "$oid": "63fd7d137d1bf53e7cd3ae93"
+        },
+        "type": "outgoing",
+        "content": "Sure, but it looks like you're due for a checkup. Let's get you scheduled."
+    }
+]
