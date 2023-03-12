@@ -57,7 +57,6 @@ export default function Messages() {
     }
 
     const newThread = {
-      id: threads.length + 1,
       patient,
       messages: [],
     };
