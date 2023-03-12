@@ -42,7 +42,7 @@ export default function Messages() {
   function endNewThread(event) {
     event.stopPropagation();
     setShowNewThread(false);
-    setActiveThreadId(threads[0]?.patient._id ?? null);
+    setActiveThreadId(threads[0]?.patient._id);
   }
 
   function addThread(patient) {
