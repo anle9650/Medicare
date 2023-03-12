@@ -1,36 +1,44 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import MessageThread from "../components/MessageThread";
 
+vi.mock("../services/MessageService", () => ({
+  sendMessageRequest: vi.fn((message) => ({
+    json: () => new Promise((resolve) => resolve(message)),
+    ok: true,
+  })),
+}));
+
 const THREAD = {
-  id: 1,
+  _id: 1,
   patient: {
+    _id: 1,
     name: "Damilola Oyin",
     photo: "damilola.png"
   },
   messages: [
     {
-      id: 1,
+      _id: 1,
       type: "outgoing",
       content: "Hello, how are you doing?",
     },
     {
-      id: 2,
+      _id: 2,
       type: "incoming",
       content: "Great, when can we have the meeting?",
     },
     {
-      id: 3,
+      _id: 3,
       type: "outgoing",
       content: "Are you available right now?",
     },
     {
-      id: 4,
+      _id: 4,
       type: "incoming",
       content: "Yeah, let's have a video call.",
     },
     {
-      id: 5,
+      _id: 5,
       type: "outgoing",
       content: "That would be great.",
     },
@@ -38,7 +46,7 @@ const THREAD = {
 };
 
 describe("MessageThread", () => {
-  it("should call props.onSendMessage with the message when a message is sent", () => {
+  it("should call props.onSendMessage with the message when a message is sent", async () => {
     const MESSAGE_CONTENT = "new message";
     const messageHandler = vi.fn();
     render(<MessageThread {...THREAD} onSendMessage={messageHandler} />);
@@ -47,7 +55,7 @@ describe("MessageThread", () => {
     fireEvent.change(messageInput, { target: { value: MESSAGE_CONTENT } });
 
     const sendButton = screen.getByTestId("sendButton");
-    fireEvent.click(sendButton);
+    await act(() => fireEvent.click(sendButton));
 
     expect(messageHandler).toHaveBeenCalledWith(
       expect.objectContaining({ content: MESSAGE_CONTENT })

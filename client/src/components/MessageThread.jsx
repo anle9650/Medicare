@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { sendMessageRequest } from "../services/MessageService";
 import Message from "./Message";
 
 export default function MessageThread(props) {
@@ -14,20 +15,28 @@ export default function MessageThread(props) {
     setMessageContent(event.target.value);
   }
 
-  function sendMessage() {
-    props.onSendMessage({
-      id: props.messages.length + 1,
+  async function sendMessage() {
+    const message = {
+      patientId: props.patient._id,
       type: "outgoing",
       content: messageContent.trim(),
-    });
+    };
 
+    const response = await sendMessageRequest(message);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const newMessage = await response.json();
+    props.onSendMessage({ ...newMessage });
     setMessageContent("");
   }
 
   return (
-    <div
-      className={`flex flex-col bg-white p-3 rounded ${props.className}`}
-    >
+    <div className={`flex flex-col bg-white p-3 rounded ${props.className}`}>
       <div
         id="thread"
         className="max-h-[78vh] overflow-y-auto"

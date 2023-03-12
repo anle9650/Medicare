@@ -5,7 +5,7 @@ export async function fetchThreads() {
   return response;
 }
 
-export async function addMessageRequest(message) {
+export async function sendMessageRequest(message) {
   const response = await fetch(PATH, {
     method: "POST",
     body: JSON.stringify(message),

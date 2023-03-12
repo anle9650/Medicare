@@ -3,12 +3,6 @@ import { render, screen, fireEvent, act } from "@testing-library/react";
 import Messages from "../components/Messages";
 import threadData from "../data/threads.json";
 
-const MOCK_PATIENT = {
-  _id: -1,
-  name: "Mock Patient"
-};
-
-
 const MOCK_MESSAGE = {
   _id: -1,
   type: "outgoing",
