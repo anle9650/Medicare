@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fetchPatients } from "../services/PatientService";
-import { useEffect } from "react";
 
 const STATUS_TO_COLOR = {
   Recovered: "bg-green-100 text-green-800 dark:text-green-400 border-green-400",

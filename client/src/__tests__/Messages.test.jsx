@@ -2,6 +2,7 @@ import { vi, describe, it, expect } from "vitest";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import Messages from "../components/Messages";
 import threadData from "../data/threads.json";
+import patientData from "../data/patients.json";
 
 const MOCK_MESSAGE = {
   _id: -1,
@@ -12,6 +13,13 @@ const MOCK_MESSAGE = {
 vi.mock("../services/MessageService", () => ({
   fetchThreads: vi.fn(() => ({
     json: () => new Promise((resolve) => resolve(threadData)),
+    ok: true,
+  })),
+}));
+
+vi.mock("../services/PatientService", () => ({
+  fetchPatients: vi.fn(() => ({
+    json: () => new Promise((resolve) => resolve(patientData)),
     ok: true,
   })),
 }));
@@ -50,7 +58,7 @@ describe("Messages", () => {
     render(<Messages />);
     await act(() => Promise.resolve());
     const newThreadButton = screen.getByTestId("newThreadButton");
-    fireEvent.click(newThreadButton);
+    await act(() => fireEvent.click(newThreadButton));
     expect(await screen.findByText('New Message'));
   });
 
