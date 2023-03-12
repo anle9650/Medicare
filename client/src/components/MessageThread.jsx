@@ -35,7 +35,7 @@ export default function MessageThread(props) {
       >
         {props.messages?.map((message, index) => (
           <Message
-            key={message.id}
+            key={message._id}
             {...message}
             className={index === 0 ? "" : "mt-2"}
           />

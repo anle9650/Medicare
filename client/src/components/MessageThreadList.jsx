@@ -5,7 +5,7 @@ export default function MessageThreadList(props) {
     if (!props.activeThread) {
       return false;
     }
-    return thread.id === props.activeThread.id;
+    return thread.patient._id === props.activeThread.patient._id;
   }
 
   function getMostRecentContent(thread) {
@@ -16,11 +16,11 @@ export default function MessageThreadList(props) {
     <ul className="divide-y divide-gray-200 dark:divide-gray-700">
       {props.threads.map((thread) => (
         <li
-          key={thread.id}
+          key={thread.patient._id}
           className={`cursor-pointer p-3 sm:pb-4 rounded ${
             isActive(thread) ? "bg-blue-400" : ""
           }`}
-          onClick={() => props.onSelect(thread.id)}
+          onClick={() => props.onSelect(thread.patient._id)}
           data-testid="threadItem"
         >
           <div className="flex items-center space-x-4">

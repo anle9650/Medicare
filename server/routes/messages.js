@@ -5,27 +5,32 @@ const { Patient } = require("../models/patient");
 
 messageRoutes.route("/threads").get(async (req, res) => {
   const threads = [];
-  const allMessages = await Message.find();
+  const messages = await Message.find();
 
-  for (message of allMessages) {
-    const existingThread = threads.find(
-      (thread) => thread.patient._id.equals(message.patientId)
+  messages.forEach((message) => {
+    const existingThread = threads.find((thread) =>
+      thread.patientId.equals(message.patientId)
     );
 
     if (existingThread) {
       existingThread.messages.push(message);
-      continue;
+      return;
     }
 
-    const patient = await Patient.findById(message.patientId);
-
     const newThread = {
-      patient,
+      patientId: message.patientId,
       messages: [message],
     };
 
     threads.push(newThread);
-  }
+  });
+
+  await Promise.all(
+    threads.map(
+      async (thread) =>
+        (thread.patient = await Patient.findById(thread.patientId))
+    )
+  );
 
   return res.status(200).json(threads);
 });

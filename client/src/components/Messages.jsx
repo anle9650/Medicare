@@ -1,5 +1,5 @@
-import { useState } from "react";
-import threadData from "../data/threads.json";
+import { useState, useEffect } from "react";
+import { fetchThreads } from "../services/MessageService";
 import MessageThreadList from "./MessageThreadList";
 import MessageThread from "./MessageThread";
 import avatarPerson from "../assets/avatar-person.svg";
@@ -7,14 +7,32 @@ import PatientLookup from "./PatientLookup";
 import PatientPhoto from "./PatientPhoto";
 
 export default function Messages() {
-  const [threads, setThreads] = useState(getThreads());
-  const [activeThreadId, setActiveThreadId] = useState(threads[0]?.id ?? null);
-  const activeThread = threads.find((thread) => thread.id === activeThreadId);
-  const [showNewThread, setShowNewThread] = useState(threads.length === 0);
+  const [threads, setThreads] = useState();
+  const [activeThreadId, setActiveThreadId] = useState();
+  const [showNewThread, setShowNewThread] = useState(false);
 
-  function getThreads() {
-    return threadData;
-  }
+  const activeThread = threads?.find(
+    (thread) => thread.patient._id === activeThreadId
+  );
+
+  useEffect(() => {
+    async function getThreads() {
+      const response = await fetchThreads();
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const threads = await response.json();
+      setThreads(threads);
+      setActiveThreadId(threads[0]?.patient._id);
+      setShowNewThread(threads.length === 0);
+    }
+
+    getThreads();
+  }, []);
 
   function startNewThread() {
     setShowNewThread(true);
@@ -24,16 +42,16 @@ export default function Messages() {
   function endNewThread(event) {
     event.stopPropagation();
     setShowNewThread(false);
-    setActiveThreadId(threads[0]?.id ?? null);
+    setActiveThreadId(threads[0]?.patient._id ?? null);
   }
 
   function addThread(patient) {
     const existingThread = threads.find(
-      (thread) => thread.patient.id === patient.id
+      (thread) => thread.patient._id === patient._id
     );
 
     if (existingThread) {
-      setActiveThreadId(existingThread.id);
+      setActiveThreadId(existingThread.patient._id);
       setShowNewThread(false);
       return;
     }
@@ -45,7 +63,7 @@ export default function Messages() {
     };
 
     setThreads((prevThreads) => [newThread, ...prevThreads]);
-    setActiveThreadId(newThread.id);
+    setActiveThreadId(newThread.patient._id);
     setShowNewThread(false);
   }
 
@@ -57,7 +75,7 @@ export default function Messages() {
 
     setThreads((prevThreads) => [
       updatedThread,
-      ...prevThreads.filter((thread) => thread.id !== activeThreadId),
+      ...prevThreads.filter((thread) => thread.patient._id !== activeThreadId),
     ]);
   }
 
@@ -85,7 +103,7 @@ export default function Messages() {
             New Message
           </p>
         </div>
-        {threads.length && !activeThread && (
+        {threads?.length && !activeThread && (
           <button
             className="dark:text-white text-white"
             onClick={endNewThread}
@@ -95,7 +113,7 @@ export default function Messages() {
           </button>
         )}
       </div>
-      {threads.length && <hr />}
+      {threads?.length && <hr />}
     </>
   );
 
@@ -112,11 +130,13 @@ export default function Messages() {
           </button>
         </div>
         {showNewThread && newThread}
-        <MessageThreadList
-          threads={threads}
-          activeThread={activeThread}
-          onSelect={(selectedThreadId) => setActiveThreadId(selectedThreadId)}
-        />
+        {threads && (
+          <MessageThreadList
+            threads={threads}
+            activeThread={activeThread}
+            onSelect={(selectedThreadId) => setActiveThreadId(selectedThreadId)}
+          />
+        )}
       </div>
       <div className="flex flex-col">
         <div className="flex bg-white p-4 rounded">
