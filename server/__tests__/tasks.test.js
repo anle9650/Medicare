@@ -12,17 +12,31 @@ afterAll((done) => {
   done();
 });
 
-describe("Task Endpoints", () => {
-  it("GET /api/tasks should show all tasks", async () => {
+describe("GET /api/tasks", () => {
+  it("should show all tasks", async () => {
     const res = await request(app).get("/api/tasks");
     expect(res.status).toEqual(200);
     expect(res.type).toEqual(expect.stringContaining("json"));
     expect(res.body.length).toBeGreaterThan(0);
   });
+});
 
-  it("GET /api/tasks/:id should show a task", async () => {
+describe("GET /api/tasks/:id", () => {
+  it("should show a task", async () => {
     const res = await request(app).get("/api/tasks/63fbac802130eb6bd53fc874");
     expect(res.statusCode).toEqual(200);
     expect(res.body.content).toEqual("Set up afternoon meeting");
+  });
+});
+
+describe("POST /api/tasks", () => {
+  it("should create a task", async () => {
+    const res = await request(app).post("/api/tasks").send({
+      content: "New Task",
+      completed: false,
+      deadline: new Date(),
+    });
+    expect(res.statusCode).toBe(201);
+    expect(res.body.content).toBe("New Task");
   });
 });
