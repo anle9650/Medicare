@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 const port = process.env.PORT || 8000;
 
-app.listen(port, async () => {
+module.exports = app.listen(port, async () => {
   await mongoose.connect(process.env.ATLAS_URI);
   console.log(`Server is running on port: ${port}`);
 });
