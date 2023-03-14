@@ -1,7 +1,7 @@
 const express = require("express");
 const messageRoutes = express.Router();
-const { Message } = require("../models/message");
-const { Patient } = require("../models/patient");
+const { Message } = require("../models/message.model");
+const { Patient } = require("../models/patient.model");
 
 messageRoutes.route("/threads").get(async (req, res) => {
   const threads = [];

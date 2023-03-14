@@ -1,6 +1,6 @@
 const express = require("express");
 const patientRoutes = express.Router();
-const { Patient } = require("../models/patient");
+const { Patient } = require("../models/patient.model");
 
 patientRoutes.route("/").get(async (req, res) => {
   const allPatients = await Patient.find();

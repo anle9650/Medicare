@@ -1,6 +1,6 @@
 const express = require("express");
 const appointmentRoutes = express.Router();
-const { Appointment } = require("../models/appointment");
+const { Appointment } = require("../models/appointment.model");
 
 appointmentRoutes.route("/").get(async (req, res) => {
   const allAppointments = await Appointment.find().populate("patient");
