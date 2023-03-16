@@ -2,10 +2,6 @@ const app = require("../index.js");
 const mongoose = require("mongoose");
 const request = require("supertest");
 
-beforeAll((done) => {
-  done();
-});
-
 afterAll((done) => {
   app.close();
   mongoose.connection.close();
@@ -53,5 +49,14 @@ describe("PUT /api/tasks/:id", () => {
     expect(res.statusCode).toBe(200);
     expect(res.body.content).toBe("Updated Task");
     expect(res.body.completed).toBe(true);
+  });
+});
+
+describe("DELETE /api/tasks/:id", () => {
+  it("should delete a task", async () => {
+    const res = await request(app).delete(
+      "/api/tasks/63fbacc62130eb6bd53fc876"
+    );
+    expect(res.statusCode).toBe(200);
   });
 });
