@@ -21,7 +21,7 @@ appointmentRoutes.route("/").post(async (req, res) => {
 
 appointmentRoutes.route("/:id").put(async (req, res) => {
   const { id } = req.params;
-  const updatedAppointment = await Appointment.findByIdAndUpdate(id, req.body);
+  const updatedAppointment = await Appointment.findByIdAndUpdate(id, req.body, {new: true});
   return res.status(200).json(updatedAppointment);
 });
 

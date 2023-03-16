@@ -49,7 +49,7 @@ messageRoutes.route("/").post(async (req, res) => {
 
 messageRoutes.route("/:id").put(async (req, res) => {
   const { id } = req.params;
-  const updatedMessage = await Message.findByIdAndUpdate(id, req.body);
+  const updatedMessage = await Message.findByIdAndUpdate(id, req.body, {new: true});
   return res.status(200).json(updatedMessage);
 });
 

@@ -21,7 +21,7 @@ patientRoutes.route("/").post(async (req, res) => {
 
 patientRoutes.route("/:id").put(async (req, res) => {
   const { id } = req.params;
-  const updatedPatient = await Patient.findByIdAndUpdate(id, req.body);
+  const updatedPatient = await Patient.findByIdAndUpdate(id, req.body, {new: true});
   return res.status(200).json(updatedPatient);
 });
 
