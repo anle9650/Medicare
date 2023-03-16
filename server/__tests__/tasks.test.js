@@ -40,3 +40,18 @@ describe("POST /api/tasks", () => {
     expect(res.body.content).toBe("New Task");
   });
 });
+
+describe("PUT /api/tasks/:id", () => {
+  it("should update a task", async () => {
+    const res = await request(app)
+      .put("/api/tasks/640fe4deddecd12eaca39c43")
+      .send({
+        content: "Updated Task",
+        completed: true,
+        deadline: new Date(),
+      });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.content).toBe("Updated Task");
+    expect(res.body.completed).toBe(true);
+  });
+});
