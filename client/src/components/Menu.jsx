@@ -44,31 +44,6 @@ export default function Menu(props) {
             <a
               href="#"
               className={`flex items-center p-2 text-base font-normal ${getClass(
-                "schedule"
-              )} rounded-lg hover:bg-gray-100`}
-            >
-              <i className="fas fa-calendar ml-1" />
-              <span className="flex-1 ml-3 whitespace-nowrap">Schedule</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className={`flex items-center p-2 text-base font-normal ${getClass(
-                "tasks"
-              )} rounded-lg hover:bg-gray-100`}
-            >
-              <i className="fas fa-tasks ml-1" />
-              <span className="flex-1 ml-3 whitespace-nowrap">Tasks</span>
-              <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                3
-              </span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="#"
-              className={`flex items-center p-2 text-base font-normal ${getClass(
                 "patients"
               )} rounded-lg hover:bg-gray-100`}
               onClick={() => updateSelected("patients")}
@@ -99,6 +74,33 @@ export default function Menu(props) {
             >
               <i className="fas fa-envelope ml-1" />
               <span className="flex-1 ml-3 whitespace-nowrap">Messages</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className={`flex items-center p-2 text-base font-normal ${getClass(
+                "schedule"
+              )} rounded-lg hover:bg-gray-100`}
+              onClick={() => updateSelected("schedule")}
+            >
+              <i className="fas fa-calendar ml-1" />
+              <span className="flex-1 ml-3 whitespace-nowrap">Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className={`flex items-center p-2 text-base font-normal ${getClass(
+                "tasks"
+              )} rounded-lg hover:bg-gray-100`}
+              onClick={() => updateSelected("tasks")}
+            >
+              <i className="fas fa-tasks ml-1" />
+              <span className="flex-1 ml-3 whitespace-nowrap">Tasks</span>
+              <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                3
+              </span>
             </a>
           </li>
         </ul>

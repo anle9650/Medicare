@@ -18,6 +18,9 @@ function App() {
           {view === "dashboard" && <Dashboard />}
           {view === "patients" && <Patients />}
           {view === "messages" && <Messages />}
+          {!["dashboard", "patients", "messages"].includes(view) && (
+            <p>Coming soon.</p>
+          )}
         </div>
       </div>
     </main>
