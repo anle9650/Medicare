@@ -15,7 +15,7 @@ Medicare is an all-in-one tool used by medical providers to organize and streaml
 
 ### Features
 
-- A streamlined dashboard that allows for providers to managed clinical tasks, appointments, and schedule.
+- A streamlined dashboard that allows for providers to manage clinical tasks, appointments, and schedule.
 - Integrated messaging service allowing for fast, easy patient-provider communcation.
 
 ### Screenshots
