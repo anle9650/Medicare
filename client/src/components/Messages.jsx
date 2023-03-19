@@ -102,7 +102,7 @@ export default function Messages() {
             New Message
           </p>
         </div>
-        {threads?.length && !activeThread && (
+        {threads?.length > 0 && !activeThread && (
           <button
             className="dark:text-white text-white"
             onClick={endNewThread}
@@ -112,7 +112,7 @@ export default function Messages() {
           </button>
         )}
       </div>
-      {threads?.length && <hr />}
+      {threads?.length > 0 && <hr />}
     </>
   );
 
