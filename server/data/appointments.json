@@ -1,0 +1,86 @@
+[
+    {
+        "_id": {
+            "$oid": "63feef62220b7bf6311f41c6"
+        },
+        "name": "Mary Joseph",
+        "scheduledStart": "8:00 AM",
+        "scheduledEnd": "8:20 AM",
+        "purpose": "Cough",
+        "start": "8:00 AM",
+        "end": "8:20 AM",
+        "patient": {
+            "$oid": "63fd7cba7d1bf53e7cd3ae8e"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "63fef011220b7bf6311f41c7"
+        },
+        "name": "Amalia Jones",
+        "scheduledStart": "8:20 AM",
+        "scheduledEnd": "8:30 AM",
+        "purpose": "Fever",
+        "start": "8:20 AM",
+        "end": "8:30 AM",
+        "patient": {
+            "$oid": "63fd7cce7d1bf53e7cd3ae8f"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "63fef062220b7bf6311f41c8"
+        },
+        "name": "Damilola Oyin",
+        "scheduledStart": "8:30 AM",
+        "scheduledEnd": "9:00 AM",
+        "purpose": "General check-up",
+        "start": "8:30 AM",
+        "end": null,
+        "patient": {
+            "$oid": "63fd7ce17d1bf53e7cd3ae90"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "63fef0b1220b7bf6311f41c9"
+        },
+        "name": "Selim Jubril",
+        "scheduledStart": "9:00 AM",
+        "scheduledEnd": "9:30 AM",
+        "purpose": "Headaches",
+        "start": null,
+        "end": null,
+        "patient": {
+            "$oid": "63fd7cf97d1bf53e7cd3ae91"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "63fef0f5220b7bf6311f41ca"
+        },
+        "name": "Henry Archuleta",
+        "scheduledStart": "9:30 AM",
+        "scheduledEnd": "10:00 AM",
+        "purpose": "Abdominal pain",
+        "start": null,
+        "end": null,
+        "patient": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "63fef0f5220b7bf6311f41ca"
+        },
+        "name": "Henry Archuleta",
+        "scheduledStart": "9:30 AM",
+        "scheduledEnd": "10:00 AM",
+        "purpose": "Abdominal pain",
+        "start": null,
+        "end": null,
+        "patient": {
+            "$oid": "63fd7d067d1bf53e7cd3ae92"
+        }
+    }
+]

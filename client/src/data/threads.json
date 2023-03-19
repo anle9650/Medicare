@@ -1,89 +1,89 @@
 [
     {
-        "id": 1,
+        "_id": 1,
         "patient": {
-            "id": 3,
+            "_id": 3,
             "name": "Damilola Oyin",
             "photo": "damilola.png"
         },
         "messages": [
             {
-                "id": 1,
+                "_id": 1,
                 "type": "outgoing",
                 "content": "Hello, how are you doing?"
             },
             {
-                "id": 2,
+                "_id": 2,
                 "type": "incoming",
                 "content": "Great, when can we have the meeting?"
             },
             {
-                "id": 3,
+                "_id": 3,
                 "type": "outgoing",
                 "content": "Are you available right now?"
             },
             {
-                "id": 4,
+                "_id": 4,
                 "type": "incoming",
                 "content": "Yeah, let's have a video call."
             },
             {
-                "id": 5,
+                "_id": 5,
                 "type": "outgoing",
                 "content": "That would be great."
             }
         ]
     },
     {
-        "id": 2,
+        "_id": 2,
         "patient": {
-            "id": 6,
+            "_id": 6,
             "name": "Henry Archuleta",
             "photo": "henry.jpg"
         },
         "messages": [
             {
-                "id": 1,
+                "_id": 1,
                 "type": "incoming",
                 "content": "Hey doc, do you have a second to discuss my test results?"
             },
             {
-                "id": 2,
+                "_id": 2,
                 "type": "outgoing",
                 "content": "Sure Henry. Did you have any specific questions?"
             },
             {
-                "id": 3,
+                "_id": 3,
                 "type": "incoming",
                 "content": "Just wondering what my elevanted HgA1c means, and how I can treat it?"
             },
             {
-                "id": 4,
+                "_id": 4,
                 "type": "outgoing",
                 "content": "Your HgA1c represents an elevation of insulin hormone. It means that you are in the pre-diabetic stage. You should work on decreasing your sugar/carb intake, overall caloric intake, and aim for 20 minutes of moderate cardiovascular exercise per day."
             },
             {
-                "id": 5,
+                "_id": 5,
                 "type": "incoming",
                 "content": "Thanks doc!"
             }
         ]
     },
     {
-        "id": 3,
+        "_id": 3,
         "patient": {
-            "id": 7,
+            "_id": 7,
             "name": "Megan Reynolds",
             "photo": "megan.jpg"
         },
         "messages": [
             {
-                "id": 1,
+                "_id": 1,
                 "type": "incoming",
                 "content": "Hi, could I get a refill for my prescription?"
             },
             {
-                "id": 2,
+                "_id": 2,
                 "type": "outgoing",
                 "content": "Sure, but it looks like you're due for a checkup. Let's get you scheduled."
             }

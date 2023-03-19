@@ -1,5 +1,5 @@
-import { useState } from "react";
-import patientData from "../data/patients.json";
+import { useState, useEffect } from "react";
+import { fetchPatients } from "../services/PatientService";
 
 const STATUS_TO_COLOR = {
   Recovered: "bg-green-100 text-green-800 dark:text-green-400 border-green-400",
@@ -9,16 +9,29 @@ const STATUS_TO_COLOR = {
 };
 
 export default function Patients() {
-  const [patients, setPatients] = useState(getPatients());
+  const [patients, setPatients] = useState();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredPatients = patients.filter((patient) =>
+  const filteredPatients = patients?.filter((patient) =>
     patient.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
-  );
+  ) ?? [];
 
-  function getPatients() {
-    return patientData;
-  }
+  useEffect(() => {
+    async function getPatients() {
+      const response = await fetchPatients();
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const patients = await response.json();
+      setPatients(patients);
+    }
+
+    getPatients();
+  }, []);
 
   function updateSearchTerm(event) {
     setSearchTerm(event.target.value);
@@ -83,7 +96,7 @@ export default function Patients() {
             {filteredPatients.map((patient) => (
               <tr
                 className="bg-white dark:bg-gray-800 dark:border-gray-700"
-                key={patient.id}
+                key={patient._id}
                 data-testid="tableRow"
               >
                 <th

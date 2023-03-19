@@ -1,20 +1,33 @@
-import { useState } from "react";
-import patientData from "../data/patients.json";
+import { useState, useEffect } from "react";
+import { fetchPatients } from "../services/PatientService";
 import PatientPhoto from "./PatientPhoto";
 
 export default function PatientLookup(props) {
-  const [patients, setPatients] = useState(getPatients());
+  const [patients, setPatients] = useState();
   const [value, setValue] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [keepOpen, setKeepOpen] = useState(false);
 
-  const filteredPatients = patients.filter((patient) =>
+  const filteredPatients = patients?.filter((patient) =>
     patient.name.toLowerCase().includes(value.trim().toLowerCase())
-  );
+  ) ?? [];
 
-  function getPatients() {
-    return patientData;
-  }
+  useEffect(() => {
+    async function getPatients() {
+      const response = await fetchPatients();
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const patients = await response.json();
+      setPatients(patients);
+    }
+
+    getPatients();
+  }, []);
 
   function handleChange(event) {
     setValue(event.target.value);
@@ -72,7 +85,7 @@ export default function PatientLookup(props) {
         >
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
             {filteredPatients.map((patient) => (
-              <li key={patient.id}>
+              <li key={patient._id}>
                 <button
                   type="button"
                   className="inline-flex items-center w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"

@@ -1,6 +1,13 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import TaskEditModal from "../components/TaskEditModal";
+
+vi.mock("../services/TaskService", () => ({
+  addTaskRequest: vi.fn((task) => ({
+    json: () => new Promise((resolve) => resolve(task)),
+    ok: true,
+  })),
+}));
 
 beforeEach(() => {
   // IntersectionObserver isn't available in test environment
@@ -35,8 +42,7 @@ describe("TaskEditModal", () => {
       target: { name: "content", value: MOCK_CONTENT },
     });
 
-    await screen.findByText(MOCK_CONTENT);
-    fireEvent.submit(form);
+    await act(() => fireEvent.submit(form));
 
     expect(submitHandler).toHaveBeenCalledWith(
       expect.objectContaining({ content: MOCK_CONTENT })
@@ -56,7 +62,7 @@ describe("TaskEditModal", () => {
     );
 
     const form = screen.getByTestId("form");
-    fireEvent.submit(form);
+    await act(() => fireEvent.submit(form));
     expect(submitHandler).not.toHaveBeenCalled();
   });
 });

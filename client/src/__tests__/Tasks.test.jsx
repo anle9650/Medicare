@@ -1,12 +1,21 @@
 import { vi, describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Tasks from "../components/Tasks";
+import taskData from "../data/tasks.json";
 
 const MOCK_TASK = {
+  _id: 5,
   content: "some task",
   deadline: "January 1, 2023",
   complete: false,
 };
+
+vi.mock("../services/TaskService", () => ({
+  fetchTasks: vi.fn(() => ({
+    json: () => new Promise((resolve) => resolve(taskData)),
+    ok: true,
+  })),
+}));
 
 vi.mock("../components/TaskEditModal", () => ({
   default: (props) => (
@@ -28,13 +37,15 @@ vi.mock("../components/Task", () => ({
 describe("Tasks", () => {
   it("should display the newly added task when a task is added", async () => {
     render(<Tasks />);
+    await act(() => new Promise(process.nextTick));
     const taskEditModal = screen.getByTestId("taskEditModal");
     fireEvent.click(taskEditModal);
     expect(await screen.findByText(MOCK_TASK.content));
   });
 
-  it("should remove the task if a task is deleted", () => {
+  it("should remove the task if a task is deleted", async () => {
     render(<Tasks />);
+    await act(() => new Promise(process.nextTick));
 
     const taskToDelete = screen.getAllByTestId("task")[0];
     const deleteTaskButton = screen.getAllByText("Delete")[0];

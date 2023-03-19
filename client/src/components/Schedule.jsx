@@ -1,31 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  fetchAppointments,
+  updateAppointmentRequest,
+  deleteAppointmentRequest,
+} from "../services/AppointmentService";
 import AppointmentGroup from "./AppointmentGroup";
 import AppointmentEditModal from "./AppointmentEditModal";
 import BaseModal from "./BaseModal";
 import ButtonPrimary from "./ButtonPrimary";
 import ButtonSecondary from "./ButtonSecondary";
-import appointmentData from "../data/appointments.json";
 
 function getHour(time) {
   return parseInt(time.split(":")[0]);
 }
 
+function getCurrentTime() {
+  const today = new Date();
+  const time =
+    today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  return time;
+}
+
 export default function Schedule() {
-  const [appointments, setAppointments] = useState(getAppointments());
+  const [appointments, setAppointments] = useState();
   const [editingAppointment, setEditingAppointment] = useState(false);
   const [appointmentToDelete, setAppointmentToDelete] = useState(null);
 
-  const hourStartTimes = [
-    ...new Set(
-      appointments.map((appointment) => getHour(appointment.scheduledStart))
-    ),
-  ];
+  const hourStartTimes =
+    [
+      ...new Set(
+        appointments?.map((appointment) => getHour(appointment.scheduledStart))
+      ),
+    ] ?? [];
 
   const groupedAppointments = groupAppointmentsByHour();
 
-  function getAppointments() {
-    return appointmentData;
-  }
+  useEffect(() => {
+    async function getAppointments() {
+      const response = await fetchAppointments();
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const appointments = await response.json();
+      setAppointments(appointments);
+    }
+
+    getAppointments();
+  }, []);
 
   function groupAppointmentsByHour() {
     const groupedAppointments = {};
@@ -48,62 +73,73 @@ export default function Schedule() {
       prevAppointments.map((appointment) => ({
         ...appointment,
         isSelected:
-          appointment.id === selected.id ? !appointment.isSelected : false,
+          appointment._id === selected._id ? !appointment.isSelected : false,
       }))
     );
   }
 
-  function startAppointment(toStart) {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) => {
-        if (appointment.id === toStart.id) {
-          const today = new Date();
-          const time =
-            today.getHours() +
-            ":" +
-            today.getMinutes() +
-            ":" +
-            today.getSeconds();
+  async function startAppointment(toStart) {
+    const currentTime = getCurrentTime();
+    const updatedAppointment = { ...toStart, start: currentTime };
+    const success = await updateAppointment(updatedAppointment);
 
-          return {
-            ...appointment,
-            start: time,
-          };
-        }
-        return appointment;
-      })
+    if (!success) {
+      return;
+    }
+
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment._id === toStart._id ? updatedAppointment : appointment
+      )
     );
   }
 
-  function endAppointment(toEnd) {
-    setAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) => {
-        if (appointment.id === toEnd.id) {
-          const today = new Date();
-          const time =
-            today.getHours() +
-            ":" +
-            today.getMinutes() +
-            ":" +
-            today.getSeconds();
+  async function endAppointment(toEnd) {
+    const currentTime = getCurrentTime();
+    const updatedAppointment = { ...toEnd, end: currentTime };
+    const success = await updateAppointment(updatedAppointment);
 
-          return {
-            ...appointment,
-            end: time,
-          };
-        }
-        return appointment;
-      })
+    if (!success) {
+      return;
+    }
+
+    setAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment._id === toEnd._id ? updatedAppointment : appointment
+      )
     );
+  }
+
+  async function updateAppointment(appointment) {
+    const response = await updateAppointmentRequest(appointment);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const updatedAppointment = await response.json();
+    return updatedAppointment;
   }
 
   function confirmDeleteAppointment(toDelete) {
     setAppointmentToDelete(toDelete);
   }
 
-  function deleteAppointment() {
+  async function deleteAppointment() {
+    const response = await deleteAppointmentRequest(appointmentToDelete._id);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
     setAppointments((prevAppointments) =>
-      prevAppointments.filter((appointment) => appointment !== appointmentToDelete)
+      prevAppointments.filter(
+        (appointment) => appointment !== appointmentToDelete
+      )
     );
     setAppointmentToDelete(null);
   }
@@ -142,7 +178,7 @@ export default function Schedule() {
         onSubmit={(appointment) => addAppointment(appointment)}
         onClose={() => setEditingAppointment(false)}
       />
-      
+
       <BaseModal
         open={!!appointmentToDelete}
         onClose={() => setAppointmentToDelete(null)}
@@ -151,7 +187,9 @@ export default function Schedule() {
           Are you sure you want to delete this appointment?
         </BaseModal.Body>
         <BaseModal.Footer>
-          <ButtonPrimary onClick={deleteAppointment}>Yes, I'm sure</ButtonPrimary>
+          <ButtonPrimary onClick={deleteAppointment}>
+            Yes, I'm sure
+          </ButtonPrimary>
           <ButtonSecondary
             className="mr-2"
             onClick={() => setAppointmentToDelete(null)}

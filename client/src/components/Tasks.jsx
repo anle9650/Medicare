@@ -1,28 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { fetchTasks } from "../services/TaskService";
 import TaskEditModal from "./TaskEditModal";
 import Task from "./Task";
-import taskData from "../data/tasks.json";
 
 export default function Tasks() {
-  const [tasks, setTasks] = useState(getTasks());
+  const [tasks, setTasks] = useState();
   const [editingTask, setEditingTask] = useState(false);
 
-  function getTasks() {
-    return taskData;
-  }
+  useEffect(() => {
+   async function getTasks() {
+     const response = await fetchTasks();
+ 
+     if (!response.ok) {
+       const message = `An error occurred: ${response.statusText}`;
+       window.alert(message);
+       return;
+     }
+ 
+     const tasks = await response.json();
+     setTasks(tasks);
+   }
+ 
+   getTasks();
+ }, []);
 
   function addTask(task) {
-    setTasks((prevTasks) => {
-        const id = prevTasks.length + 1;
-        const newTask = { ...task, id };
-        return [newTask, ...prevTasks];
-    });
+    setTasks((prevTasks) => [task, ...prevTasks]);
   }
 
   function updateTask(updatedTask) {
     setTasks((oldTasks) =>
       oldTasks.map((oldTask) =>
-        oldTask.id === updatedTask.id ? updatedTask : oldTask
+        oldTask._id === updatedTask._id ? updatedTask : oldTask
       )
     );
   }
@@ -43,9 +52,9 @@ export default function Tasks() {
             <i className="fa-solid fa-plus"></i>
           </button>
         </div>
-        {tasks.map((task, index) => (
+        {tasks?.map((task, index) => (
           <Task
-            key={task.id}
+            key={task._id}
             {...task}
             className={index === tasks.length - 1 ? "" : "mb-4"}
             onUpdate={(updatedTask) => updateTask(updatedTask)}

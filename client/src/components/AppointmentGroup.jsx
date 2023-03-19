@@ -14,7 +14,7 @@ export default function AppointmentGroup(props) {
       <div className="col-span-9 pl-3 py-3">
         {props.appointments.map((appointment, index) => (
           <Appointment
-            key={appointment.id}
+            key={appointment._id}
             {...appointment}
             onSelect={() => props.onSelectAppointment(appointment)}
             onStart={() => props.onStartAppointment(appointment)}

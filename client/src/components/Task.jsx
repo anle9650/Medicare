@@ -1,16 +1,45 @@
-import TaskDropdown from "./TaskDropdown"
+import TaskDropdown from "./TaskDropdown";
+import { updateTaskRequest, deleteTaskRequest } from "../services/TaskService";
 
 export default function Task(props) {
-
-  function updateTask(event) {
+  async function handleChange(event) {
     const { name, type, value, checked } = event.target;
 
-    const updatedTask = { 
-        ...props,
-        [name]: type === 'checkbox' ? checked : value 
+    const updatedTask = {
+      ...props,
+      [name]: type === "checkbox" ? checked : value,
     };
 
-    props.onUpdate(updatedTask);
+    const success = await updateTask(updatedTask);
+
+    if (success) {
+      props.onUpdate(updatedTask);
+    }
+  }
+
+  async function updateTask(task) {
+    const response = await updateTaskRequest(task);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    const updatedTask = await response.json();
+    return updatedTask;
+  }
+
+  async function deleteTask() {
+    const response = await deleteTaskRequest(props._id);
+
+    if (!response.ok) {
+      const message = `An error occurred: ${response.statusText}`;
+      window.alert(message);
+      return;
+    }
+
+    props.onDelete();
   }
 
   return (
@@ -20,7 +49,7 @@ export default function Task(props) {
           type="checkbox"
           name="completed"
           checked={props.completed}
-          onChange={updateTask}
+          onChange={handleChange}
           className="border-gray-300 rounded p-3"
           data-testid="completedCheckbox"
         />
@@ -30,8 +59,14 @@ export default function Task(props) {
           </span>
           <p>{props.content}</p>
         </div>
-        <span className="italic col-span-3">{props.deadline}</span>
-        <TaskDropdown onDelete={props.onDelete} />
+        <span className="italic col-span-3">
+          {new Date(props.deadline).toLocaleDateString("en-us", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })}
+        </span>
+        <TaskDropdown onDelete={deleteTask} />
       </label>
     </div>
   );
