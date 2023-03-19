@@ -33,4 +33,6 @@ Medicare is an all-in-one tool used by medical providers to organize and streaml
 - Node
 - Express
 - MongoDB
+- Jest
+- React Testing Library
 - AWS
