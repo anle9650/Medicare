@@ -9,8 +9,7 @@ Medicare is an all-in-one tool used by medical providers to organize and streaml
   - [Features](#features)
   - [Screenshots](#screenshots)
 - [My process](#my-process)
-  - [Built with](#built-with)
-  - [Next steps](#next-steps)
+  - [Tools used](#tools-used)
 
 ## Overview
 
@@ -27,13 +26,11 @@ Medicare is an all-in-one tool used by medical providers to organize and streaml
 
 ## My process
 
-### Built with
+### Tools used
 
 - React
 - Tailwind CSS
-- Vitest
-- React Testing Library
-
-### Next steps
-Medicare is a work in progress. It is currently in the UI prototyping stage. Next steps include adding more frontend features, and implementing a backend
-REST server and database.
+- Node
+- Express
+- MongoDB
+- AWS
