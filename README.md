@@ -1,7 +1,6 @@
 # Medicare
 
 Medicare is an all-in-one tool used by medical providers to organize and streamline clincical tasks, schedules, patient records, and patient communication.
-[Click here to see the live site](http://3.129.44.187).
 
 ## Table of contents
 
